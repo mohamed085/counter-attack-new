@@ -1,0 +1,127 @@
+@import "variables";
+@import "mixins";
+
+input,
+select,
+option {
+  padding: 6px 12px;
+  font-size: 14px;
+
+  &:focus,
+  &:active {
+    border: 1px solid $color-grey-dark;
+    box-shadow: none;
+  }
+}
+
+.items-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  & .title {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  & .add-new-btn {
+    background-color: $color-primary;
+    border: 1px solid $color-primary;
+
+    &:hover {
+      background-color: $color-primary-dark-2;
+      border: 1px solid $color-primary-dark-2;
+
+    }
+  }
+}
+
+.action-btns {
+  display: flex;
+
+  & .btn {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: $color-white;
+    margin: 0 3px;
+    width: 34px;
+    height: 34px;
+
+    &.edit-btn {
+      background-color: $color-success;
+
+      &:hover {
+        background-color: $color-success-dark;
+      }
+    }
+
+    &.remove-btn {
+      background-color: $color-danger;
+
+      &:hover {
+        background-color: $color-danger-dark;
+      }
+
+    }
+
+    &.message-btn {
+      background-color: $color-primary;
+
+      &:hover {
+        background-color: $color-primary-dark;
+      }
+
+    }
+  }
+
+}
+
+.table {
+
+  & th,
+  & td {
+    padding: 10px 0;
+    cursor: pointer;
+  }
+}
+
+.search-container {
+  display: flex;
+  padding: 5px;
+  border: 1px solid $color-grey-light-1;
+  border-radius: 5px;
+  background-color: $color-white;
+  margin-bottom: 30px;
+
+  & .search-input {
+    border: none;
+  }
+
+  & .search-btn {
+    background: none;
+    border: none;
+    color: $color-primary;
+
+    &:hover {
+      color: $color-primary-dark-2;
+    }
+  }
+}
+
+.save-btn {
+  width: max-content;
+  padding: 5px 15px;
+  border: none;
+  background-color: $color-success;
+  margin: 20px 0 0;
+  color: $color-white;
+  font-size: 18px;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $color-success-dark;
+  }
+}

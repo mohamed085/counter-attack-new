@@ -1,0 +1,35 @@
+// COLORS
+$color-primary: #3eacff;
+$color-primary-light: #6fc0ff;
+$color-primary-dark: #00599a;
+$color-primary-dark-2: #004473;
+
+$color-danger: #dc3545;
+$color-danger-light: #e37b86;
+$color-danger-dark: #9d202b;
+
+$color-success: #28a745;
+$color-success-light: #61da7d;
+$color-success-dark: #165b26;
+
+$color-grey-light-1: #d2d2d2;
+$color-grey-light-2: #818181;
+
+$color-grey-dark: #777;
+$color-grey-dark-2: #4b4b4b;
+$color-grey-dark-3: #2b2e33;
+
+$color-white: #fff;
+$color-black: #000;
+
+.err {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  padding: .7rem 1rem;
+  border: 1px solid #ff3131;
+  font-size: 1.6rem;
+  color: #ff3131;
+  background: #ff8787;
+  border-radius: 10px;
+}

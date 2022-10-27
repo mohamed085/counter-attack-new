@@ -1,0 +1,137 @@
+<template>
+  <div class="items-container">
+    <ul class="items">
+      <li class="item">
+        <router-link class="link" to="/" exact>
+          <i class="fas fa-chart-bar"></i>
+          <span>الإحصائيات</span>
+        </router-link>
+      </li>
+      <li class="item">
+        <div @click="teams = !teams" class="parent-link">
+          <div>
+            <i class="fas fa-users"></i>
+            <span>الفرق</span>
+          </div>
+          <i v-if="!teams" class="fas fa-angle-down me-3 animate__animated animate__fadeIn"></i>
+          <i v-if="teams" class="fas fa-angle-up me-3 animate__animated animate__fadeIn"></i>
+        </div>
+        <div v-if="teams" class="child-content animate__animated animate__fadeIn">
+          <router-link class="child-link" to="/teams-accepted" exact>
+            <i class="fas fa-angle-left"></i>
+            <span>الفرق الموجودة</span>
+          </router-link>
+          <router-link class="child-link" to="/teams-requested" exact>
+            <i class="fas fa-angle-left"></i>
+            <span>طلبات الفرق</span>
+          </router-link>
+        </div>
+      </li>
+      <li class="item">
+        <div @click="organization_agencies = !organization_agencies" class="parent-link">
+          <div>
+            <i class="fas fa-sitemap"></i>
+            <span>اللجان المنظمة</span>
+          </div>
+          <i v-if="!organization_agencies" class="fas fa-angle-down me-3 animate__animated animate__fadeIn"></i>
+          <i v-if="organization_agencies" class="fas fa-angle-up me-3 animate__animated animate__fadeIn"></i>
+        </div>
+        <div v-if="organization_agencies" class="child-content animate__animated animate__fadeIn">
+          <router-link class="child-link" to="/organization-agencies-accepted" exact>
+            <i class="fas fa-angle-left"></i>
+            <span>اللجان المنظمة</span>
+          </router-link>
+          <router-link class="child-link" to="/organization-agencies-requested" exact>
+            <i class="fas fa-angle-left"></i>
+            <span>طلبات اللجان المنظمة</span>
+          </router-link>
+
+        </div>
+      </li>
+      <li class="item">
+        <router-link class="link" to="/products">
+          <i class="fab fa-product-hunt"></i>
+          <span>المنتجات</span>
+        </router-link>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "sidebar-items",
+  data() {
+    return {
+      teams: false,
+      organization_agencies: false,
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import "../../assets/css/variables";
+
+.items-container {
+  width: 100%;
+  color: $color-white;
+  transition: all .5s ease-in-out !important;
+
+
+  & .items {
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+
+    & .item {
+      width: 220px;
+
+      & .link,
+      & .parent-link,
+      & .child-link {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px 10px 0;
+        width: 220px;
+        transition: all 0.3s ease-in-out;
+        color: $color-grey-dark !important;
+        position: relative;
+        outline-width: 0;
+        white-space: nowrap;
+        cursor: pointer;
+
+        & i {
+          font-size: 20px;
+          margin-left: 10px;
+        }
+
+      }
+      & .link:hover,
+      & .child-link:hover,
+      & .link.active,
+      & .child-link.active,
+      & .link.router-link-active,
+      & .child-link.router-link-active {
+        color: $color-primary !important;
+      }
+
+      & .parent-link {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      & .child-content {
+        margin-right: 10px;
+
+        & .child-link {
+          padding: 7px 12px 7px 0;
+
+        }
+      }
+    }
+  }
+}
+</style>

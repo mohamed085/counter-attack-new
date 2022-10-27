@@ -1,0 +1,253 @@
+@import "variables";
+@import "mixins";
+
+.content {
+
+  & .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    & .breadcrumb {
+      display: flex;
+      margin: 0;
+
+      & .link {
+        color: $color-grey-dark;
+        margin: 0 5px;
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+
+  }
+
+  & .card {
+    background: $color-white;
+    background-clip: border-box;
+    border: 1px solid #deebfd;
+    box-shadow: -8px 12px 18px 0 #dadee8;
+    padding: 15px 10px;
+
+  }
+
+  & .team-overview {
+    padding: 30px 20px;
+
+    & .main-img {
+      width: 60%;
+      height: 150px;
+      margin-bottom: 20px;
+
+      & .logo-img {
+        object-fit: cover;
+        border-radius: 100%;
+        max-width: 100%;
+        max-height: 100%;
+
+      }
+    }
+
+    & .team-info {
+      display: flex;
+      flex-direction: column;
+
+      & .team-name {
+        color: #242f48;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 2px;
+      }
+    }
+
+    & .team-bio {
+      margin: 12px 0;
+
+      & span {
+        text-align: justify;
+        font-size: 14px;
+      }
+    }
+
+    & .team-statistics {
+      margin: 20px 0 10px;
+
+      & .item {
+        display: flex;
+        flex-direction: column;
+
+        & .statistics-num {
+          font-weight: 500;
+          line-height: 1.2;
+          margin-bottom: 5px;
+          color: #031b4e;
+          font-size: 20px;
+        }
+      }
+    }
+
+    & .edit-btn {
+      width: max-content;
+      padding: 5px 7px;
+      border: none;
+      margin: 0 5px 0 0;
+    }
+
+  }
+
+  & .status {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & .icon {
+      margin-right: 5px;
+      margin-bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+
+      &.blue {
+        background-color: #d9e8fc;
+      }
+
+      &.red {
+        background-color: #fce1e7;
+      }
+
+      &.green {
+        background-color: #def6e2;
+      }
+
+      & i {
+        font-size: 22px;
+
+        &.blue {
+          color: #0162e8;
+        }
+
+        &.red {
+          color: #ee335e;
+        }
+
+        &.green {
+          color: #22c03c;
+        }
+
+      }
+    }
+
+    & .details {
+      display: flex;
+      flex-direction: column;
+      color: #031b4e;
+
+      & .title {
+        font-size: 14px;
+        margin-bottom: 5px;
+        font-weight: 500;
+        line-height: 1.2;
+      }
+
+      & .num {
+        font-size: 20px;
+      }
+    }
+  }
+
+  & .details-container {
+    padding: 20px;
+
+    & .tabs-menu-lg {
+      display: flex;
+
+      & .tab {
+        border: 1px solid #e3e8f7;
+        padding: 10px 15px;
+        color: $color-black;
+        margin: 0 3px;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        border-bottom: 0;
+        cursor: pointer;
+
+        &.active {
+          background: #ecf0fa;
+        }
+      }
+
+      @include respond('tab-port') {
+        display: none;
+      }
+    }
+
+    & .tabs-menu-sm {
+      display: none;
+
+      @include respond('tab-port') {
+        display: block;
+      }
+    }
+
+    & .content {
+      border: 1px solid #e3e8f7;
+      padding: 20px;
+
+      & .about {
+
+        & .team-shirt {
+          padding: 10px;
+          width: 100%;
+        }
+      }
+
+      & .team {
+
+        & .player {
+          padding: 5px;
+          border: 1px solid #e3e8f7;
+          border-radius: 5px;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+
+          & .player-img {
+            max-width: 90%;
+            margin-bottom: 10px;
+            border-radius: 7px;
+          }
+
+          & .player-name {
+            font-size: 20px;
+            color: #031b4e;
+          }
+
+          & .player-num {
+            font-size: 30px;
+            color: #031b4e;
+          }
+
+        }
+      }
+
+      & .manger {
+      }
+    }
+  }
+
+  & .add-logo-btn {
+    width: max-content;
+    padding: 5px 15px;
+    border: none;
+    margin-bottom: 5px;
+
+  }
+
+}
