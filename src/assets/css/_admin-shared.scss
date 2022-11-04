@@ -38,46 +38,67 @@ option {
 
 .action-btns {
   display: flex;
+}
 
-  & .btn {
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
+.btn {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: $color-white;
+  margin: 0 3px;
+
+  &.edit-btn {
     color: $color-white;
-    margin: 0 3px;
     width: 34px;
     height: 34px;
+    background-color: $color-success;
 
-    &.edit-btn {
-      background-color: $color-success;
-
-      &:hover {
-        background-color: $color-success-dark;
-      }
-    }
-
-    &.remove-btn {
-      background-color: $color-danger;
-
-      &:hover {
-        background-color: $color-danger-dark;
-      }
-
-    }
-
-    &.message-btn {
-      background-color: $color-primary;
-
-      &:hover {
-        background-color: $color-primary-dark;
-      }
-
+    &:hover {
+      background-color: $color-success-dark !important;
     }
   }
 
+  &.remove-btn {
+    color: $color-white;
+    width: 34px;
+    height: 34px;
+    background-color: $color-danger;
+
+    &:hover {
+      background-color: $color-danger-dark !important;
+    }
+
+  }
+
+  &.message-btn {
+    color: $color-white;
+    width: 34px;
+    height: 34px;
+    background-color: $color-primary;
+
+    &:hover {
+      background-color: $color-primary-dark !important;
+    }
+  }
+
+  &.save-btn {
+    width: max-content;
+    padding: 5px 15px;
+    border: none;
+    background-color: $color-success;
+    margin: 20px 0 0;
+    color: $color-white;
+    font-size: 18px;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: $color-success-dark;
+    }
+  }
 }
+
 
 .table {
 
@@ -111,17 +132,32 @@ option {
   }
 }
 
-.save-btn {
-  width: max-content;
-  padding: 5px 15px;
-  border: none;
-  background-color: $color-success;
-  margin: 20px 0 0;
-  color: $color-white;
-  font-size: 18px;
-  border-radius: 5px;
 
-  &:hover {
-    background-color: $color-success-dark;
+.add-container {
+  background-color: $color-white;
+  min-height: 80vh;
+  padding: 20px;
+  border-radius: 5px;
+  color: $color-black;
+
+}
+
+.add-image-btn {
+  display: block;
+  width: max-content;
+  padding: 5px 7px;
+  border: none;
+  margin: 10px 5px 0 0;
+}
+
+.img {
+  max-width: 100%;
+}
+
+.administrator-img {
+  width: 200px;
+
+  @include respond('tab-port') {
+    width: 150px;
   }
 }

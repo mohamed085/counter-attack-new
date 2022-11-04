@@ -10,24 +10,29 @@
       <span class="role">ادمن</span>
     </div>
 
-    <sidebar-items v-if="role === this.$store.getters['auth/adminRole']"></sidebar-items>
+    <admin-sidebar-items v-if="role === this.$store.getters.adminRole"></admin-sidebar-items>
+    <team-sidebar-items v-if="role === this.$store.getters.teamRole"></team-sidebar-items>
   </div>
 </template>
 
 <script>
-import SidebarItems from "@/components/admin/sidebar-items";
+import AdminSidebarItems from "@/components/admin/sidebar-items";
+import TeamSidebarItems from "@/components/team/sidebar-items";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "sidebar",
   components: {
-    SidebarItems,
+    AdminSidebarItems,
+    TeamSidebarItems,
   },
   data() {
     return {
-      role: this.$store.getters['auth/role'],
+      role: '',
     }
   },
-
+  created() {
+    this.role = this.$store.getters.role;
+  }
 }
 </script>
 

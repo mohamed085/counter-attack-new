@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "accepted-teams",
@@ -55,8 +57,14 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0,0);
+
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.adminRole) {
+      router.push("/login")
+    }
     this.loadTeams();
   },
+
   methods: {
     async loadTeams() {
       this.is_loading = true;

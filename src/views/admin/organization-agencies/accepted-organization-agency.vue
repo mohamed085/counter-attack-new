@@ -1,5 +1,8 @@
 <template>
-  <b-overlay :show="is_loading" rounded="sm" class="content">
+  <div>
+    <div class="err" v-if="error">{{ error_message }}</div>
+
+    <b-overlay :show="is_loading" rounded="sm" class="content">
     <div class="header">
       <div class="breadcrumb">
         <router-link class="link" to="/teams-accepted">الفرق / </router-link>
@@ -169,9 +172,12 @@
       </div>
     </div>
   </b-overlay>
+  </div>
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "accepted-organization-agency",
@@ -185,6 +191,11 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0,0);
+
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.adminRole) {
+      router.push("/login")
+    }
     this.loadTeam(this.$route.params.id)
   },
   methods: {
@@ -204,18 +215,19 @@ export default {
       };
 
       let url = this.$store.getters["main/getURL"] + '/api/admin/get-team/' + id;
-      await fetch(url, requestOptions)
-          .then(response => response.json())
-          .then(response => {
-            if (response.status)
-              this.team = response.data
-          })
-          .catch(error => console.log('error', error));
 
-      this.is_loading = false
+      const response = await fetch(url, requestOptions);
+      const responseData = await response.json();
 
+      if (!response.ok || !responseData.status) {
+        console.log(response)
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        this.team = response.data
+        this.is_loading = false
+      }
     },
-
   }
 }
 </script>

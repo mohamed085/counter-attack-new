@@ -44,10 +44,8 @@
 
       & .logo-img {
         object-fit: cover;
-        border-radius: 100%;
         max-width: 100%;
         max-height: 100%;
-
       }
     }
 
@@ -88,14 +86,6 @@
         }
       }
     }
-
-    & .edit-btn {
-      width: max-content;
-      padding: 5px 7px;
-      border: none;
-      margin: 0 5px 0 0;
-    }
-
   }
 
   & .status {
@@ -202,6 +192,18 @@
 
       & .about {
 
+        & .team-shirt-container {
+          position: relative;
+
+          & .edit-btn {
+            z-index: 10;
+            width: max-content;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+          }
+        }
+
         & .team-shirt {
           padding: 10px;
           width: 100%;
@@ -217,6 +219,13 @@
           display: flex;
           align-items: center;
           flex-direction: column;
+          position: relative;
+
+          & .edit-btn {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+          }
 
           & .player-img {
             max-width: 90%;
@@ -249,5 +258,72 @@
     margin-bottom: 5px;
 
   }
+}
 
+.edit-btn {
+  padding: 5px 7px;
+  border: none;
+  margin: 0 5px 0 0;
+  background-color: $color-white;
+  color: $color-black;
+  width: 34px;
+  height: 34px;
+}
+
+.player-layout {
+  display: flex;
+  align-items: center;
+  background-color: $color-white;
+  padding: 15px 15px 0 15px;
+  border-radius: 5px;
+  position: relative;
+
+  @include respond('tab-port') {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    min-height: 70vh;
+  }
+
+  & .player-img {
+    max-width: 50%;
+
+    @include respond('tab-port') {
+      width: 100%;
+    }
+
+    & img {
+      border-radius: 10px;
+      max-width: 100%;
+    }
+
+    & .add-logo-btn {
+      margin-top: 20px;
+    }
+  }
+
+  & .player-info {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5%;
+    width: 100%;
+
+  }
+}
+
+.add-player-container {
+  display: flex;
+  padding: 5px 0 15px 10px;
+  justify-content: end;
+
+  & .add-player {
+    background-color: $color-success;
+    padding: 5px 15px;
+    color: $color-white;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: $color-success-dark;
+    }
+  }
 }

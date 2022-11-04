@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "products",
@@ -39,6 +41,11 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0,0);
+
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.adminRole) {
+      router.push("/login")
+    }
     this.loadProducts();
   },
   methods: {
@@ -64,7 +71,10 @@ export default {
             if (response.status)
               this.products = response.data
           })
-          .catch(error => console.log('error', error));
+          .catch(error => {
+            console.log(error)
+            this.error_message = "حدث خطأ ما"
+          });
 
       this.is_loading = false
 
@@ -96,7 +106,10 @@ export default {
             if (response.status)
               this.products = response.data
           })
-          .catch(error => console.log('error', error));
+          .catch(error => {
+            console.log(error)
+            this.error_message = "حدث خطأ ما"
+          });
 
       this.is_loading = false
 

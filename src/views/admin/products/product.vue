@@ -58,6 +58,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "product",
@@ -116,7 +118,12 @@ export default {
     }
   },
   created() {
-    // this.loadProduct(this.$route.params.id)
+    window.scrollTo(0,0);
+
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.adminRole) {
+      router.push("/login")
+    }
+    this.loadProduct(this.$route.params.id)
   },
   methods: {
     async deleteProduct() {
@@ -141,7 +148,10 @@ export default {
             if (response.status)
               this.delete_success = true;
           })
-          .catch(error => console.log('error', error));
+          .catch(error => {
+            console.log(error)
+            this.error_message = "حدث خطأ ما"
+          });
 
       this.is_loading = false
     },
@@ -167,7 +177,10 @@ export default {
             if (response.status)
               this.product = response.data
           })
-          .catch(error => console.log('error', error));
+          .catch(error => {
+            console.log(error)
+            this.error_message = "حدث خطأ ما"
+          });
 
       this.is_loading = false
 

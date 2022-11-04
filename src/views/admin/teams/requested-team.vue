@@ -1,5 +1,7 @@
 <template>
-  <b-overlay :show="is_loading" rounded="sm" class="content">
+  <div>
+    <div class="err" v-if="error">{{ error_message }}</div>
+    <b-overlay :show="is_loading" rounded="sm" class="content">
     <div class="header">
       <div class="breadcrumb">
         <router-link class="link" to="/teams-requested">الفرق / </router-link>
@@ -26,7 +28,7 @@
               <b-form-input type="text" v-model="message.title" placeholder="عنوان الرسالة" required></b-form-input>
               <b-form-input type="text" class="mt-2" v-model="message.message" placeholder="الرسالة" required></b-form-input>
             </div>
-            <div>
+            <div class="d-flex">
               <b-button class="mt-3 ms-2 btn-success" type="submit" block>إرسال الرسالة</b-button>
               <b-button class="mt-3 btn-danger" type="reset" block @click="$bvModal.hide('message-model')">إغلاق</b-button>
             </div>
@@ -39,7 +41,7 @@
           <div class="d-block mb-2">
             <span>هل انت متاكد من قبول الطلب</span>
           </div>
-          <div>
+          <div class="d-flex">
             <b-button class="mt-3 ms-2 btn-success" @click="accept" block>قبول الطلب</b-button>
             <b-button class="mt-3 btn-danger" block @click="$bvModal.hide('accept-model')">إغلاق</b-button>
           </div>
@@ -60,7 +62,7 @@
             <div class="d-block">
               <b-form-input type="text" class="mt-2" v-model="reject_message" placeholder="سبب الرفض" required></b-form-input>
             </div>
-            <div>
+            <div class="d-flex">
               <b-button class="mt-3 ms-2 btn-success" type="submit" block>رفض الطلب</b-button>
               <b-button class="mt-3 btn-danger" type="reset" block @click="$bvModal.hide('reject-model')">إغلاق</b-button>
             </div>
@@ -82,7 +84,7 @@
       <div class="col-md-4 col-12 mb-5">
         <div class="card team-overview">
           <div class="main-img">
-            <img class="logo-img" :src="team.logo">
+            <img class="logo-img" src="https://i.pinimg.com/originals/8f/04/55/8f0455ed68ce4d45007ab7cd232b5e73.png">
           </div>
           <div class="team-info">
             <span class="team-name">{{ team.team_name }}</span>
@@ -95,16 +97,16 @@
           </div>
           <div class="team-statistics row">
             <div class="col-4 item">
-              <span class="statistics-num">12312</span>
-              <span class="statistics-title">متابع</span>
+              <span class="statistics-num">{{ team.team_followers }}</span>
+              <span class="statistics-title">متابَعًا</span>
             </div>
             <div class="col-4 item">
-              <span class="statistics-num">12312</span>
-              <span class="statistics-title">متابع</span>
+              <span class="statistics-num">1</span>
+              <span class="statistics-title">متابِعًا</span>
             </div>
             <div class="col-4 item">
-              <span class="statistics-num">12312</span>
-              <span class="statistics-title">متابع</span>
+              <span class="statistics-num">1</span>
+              <span class="statistics-title">منشور</span>
             </div>
           </div>
         </div>
@@ -233,9 +235,12 @@
       </div>
     </div>
   </b-overlay>
+  </div>
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "requested-team",
@@ -256,6 +261,11 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0,0);
+
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.adminRole) {
+      router.push("/login")
+    }
     this.loadTeam(this.$route.params.id)
   },
   methods: {
@@ -275,16 +285,17 @@ export default {
       };
 
       let url = this.$store.getters["main/getURL"] + '/api/admin/get-team/' + id;
-      await fetch(url, requestOptions)
-          .then(response => response.json())
-          .then(response => {
-            if (response.status)
-              this.team = response.data
-          })
-          .catch(error => console.log('error', error));
+      const response = await fetch(url, requestOptions);
+      const responseData = await response.json();
 
-      this.is_loading = false
-
+      if (!response.ok || !responseData.status) {
+        console.log(response)
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        this.team = responseData.data
+        this.is_loading = false
+      }
     },
     async sendMessage() {
       this.is_loading = true;
@@ -311,16 +322,17 @@ export default {
       };
 
       let url = this.$store.getters["main/getURL"] + '/api/admin/reject-team-request/' + this.team.id;
-      await fetch(url, requestOptions)
-          .then(response => response.json())
-          .then(response => {
-            console.log(response)
-            if (response.status)
-              this.reject_success = true;
-          })
-          .catch(error => console.log('error', error));
+      const response = await fetch(url, requestOptions);
+      const responseData = await response.json();
 
-      this.is_loading = false
+      if (!response.ok || !responseData.status) {
+        console.log(responseData)
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        this.reject_success = true;
+        this.is_loading = false
+      }
     },
     async accept() {
       this.is_loading = true;
@@ -337,15 +349,17 @@ export default {
       };
 
       let url = this.$store.getters["main/getURL"] + '/api/admin/accept-team-request/' + this.team.id;
-      await fetch(url, requestOptions)
-          .then(response => response.json())
-          .then(response => {
-            if (response.status)
-              this.accept_success = true;
-          })
-          .catch(error => console.log('error', error));
+      const response = await fetch(url, requestOptions);
+      const responseData = await response.json();
 
-      this.is_loading = false
+      if (!response.ok || !responseData.status) {
+        console.log(response)
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        this.accept_success = true;
+        this.is_loading = false
+      }
     }
   }
 }

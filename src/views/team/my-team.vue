@@ -5,57 +5,13 @@
     <b-overlay :show="is_loading" rounded="sm" class="content">
       <div class="header">
         <div class="breadcrumb">
-          <router-link class="link" to="/teams-accepted">الفرق / </router-link>
-          <span v-if="!is_loading" class="active">{{ team.team_name }}</span>
+          <span v-if="!is_loading" class="active">فريقي</span>
         </div>
         <div v-if="!is_loading" class="action-btns">
-          <b-button v-b-modal.message-model v-b-tooltip.hover title="إرسال رسالة" class="btn message-btn">
-            <i class="fas fa-envelope"></i>
-          </b-button>
           <router-link class="btn edit-btn" v-b-tooltip.hover title="تعديل بيانات الفريق" :to="'/teams-accepted/edit/' + team.id">
             <i class="fal fa-edit"></i>
           </router-link>
-          <b-button v-b-modal.delete-model v-b-tooltip.hover title="حذف الفريق" class="btn remove-btn">
-            <i class="far fa-trash-alt"></i>
-          </b-button>
         </div>
-      </div>
-
-      <div>
-        <b-modal id="message-model" title="إرسال رسالة" hide-footer>
-          <b-overlay :show="is_loading">
-            <b-form @submit.prevent="sendMessage">
-              <div class="d-block">
-                <b-form-input type="text" v-model="message.title" placeholder="عنوان الرسالة" required></b-form-input>
-                <b-form-input type="text" class="mt-2" v-model="message.message" placeholder="الرسالة" required></b-form-input>
-              </div>
-              <div class="d-flex">
-                <b-button class="mt-3 ms-2 btn-success" type="submit" block>إرسال الرسالة</b-button>
-                <b-button class="mt-3 btn-danger" type="reset" block @click="$bvModal.hide('message-model')">إغلاق</b-button>
-              </div>
-            </b-form>
-          </b-overlay>
-        </b-modal>
-
-        <b-modal id="delete-model" title="حذف الفريق" hide-footer>
-          <b-overlay v-if="!delete_success" :show="is_loading">
-            <div class="d-block">
-              <span>هل انت متاكد من حذف الفريق: {{ team.team_name }}</span>
-            </div>
-            <div class="d-flex">
-              <b-button class="mt-3 ms-2 btn-success" @click="deleteTeam" block>حذف</b-button>
-              <b-button class="mt-3 btn-danger" type="reset" block @click="$bvModal.hide('delete-model')">إغلاق</b-button>
-            </div>
-          </b-overlay>
-          <b-overlay v-else-if="delete_success" :show="is_loading">
-            <div class="d-block mb-2">
-              <span>تم حذف الفريق بنجاح</span>
-            </div>
-            <div>
-              <b-button class="mt-3 btn-danger" block @click="$router.push('/teams-accepted/')">إغلاق</b-button>
-            </div>
-          </b-overlay>
-        </b-modal>
       </div>
 
       <div class="row">
@@ -190,6 +146,9 @@
 
                   </div>
                   <div class="team" v-if="active_tab === 'team'">
+                    <div class="add-player-container">
+                      <router-link class="add-player" :to="'/teams-accepted/edit/' + team.id + '/add-player'">أضف لاعب جديد</router-link>
+                    </div>
                     <div class="row">
                       <div class="col-md-4 col-12 mb-4" v-for="player in team.team_players" :key="player.id">
                         <div class="player">
@@ -217,32 +176,26 @@
 import router from "@/router";
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "accepted-team",
+  name: "my-team",
   data() {
     return {
-      active_tab: "about",
+      active_tab: "team",
       is_loading: false,
       error: false,
       error_message: '',
       team: '',
-      message: {
-        title: '',
-        message: '',
-      },
-      delete_success: false,
     }
   },
   created() {
-  window.scrollTo(0,0);
+    window.scrollTo(0,0);
 
-    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.adminRole) {
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.teamRole) {
       router.push("/login")
     }
-    this.loadTeam(this.$route.params.id)
+    this.loadTeam()
   },
   methods: {
-    async loadTeam(id) {
+    async loadTeam() {
       this.is_loading = true;
       this.error = false;
 
@@ -252,12 +205,12 @@ export default {
       myHeaders.append("Authorization", "Bearer " + token);
 
       let requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: myHeaders,
         redirect: 'follow'
       };
 
-      let url = this.$store.getters["main/getURL"] + '/api/admin/get-team/' + id;
+      let url = this.$store.getters["main/getURL"] + '/api/team/get-team-by-token';
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();
 
@@ -270,46 +223,12 @@ export default {
         this.is_loading = false
       }
     },
-    async sendMessage() {
-      this.is_loading = true;
-      console.log(this.message)
-
-      this.is_loading = false;
-    },
-    async deleteTeam() {
-      this.is_loading = true;
-
-      let token = this.$store.getters.token;
-      let myHeaders = new Headers();
-      myHeaders.append("Accept", "application/json");
-      myHeaders.append("Authorization", "Bearer " + token);
-
-
-      let requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
-
-      let url = this.$store.getters["main/getURL"] + '/api/admin/block-team/' + this.team.id;
-      const response = await fetch(url, requestOptions);
-      const responseData = await response.json();
-
-      if (!response.ok || !responseData.status) {
-        console.log(responseData)
-        this.error = true
-        this.error_message = "حدث خطأ ما"
-      } else {
-        this.delete_success = true;
-        this.is_loading = false
-      }
-    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../../../assets/css/admin-shared";
-@import "../../../assets/css/admin-team";
+@import "../../assets/css/admin-shared";
+@import "../../assets/css/admin-team";
 
 </style>

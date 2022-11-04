@@ -1,5 +1,5 @@
 <template>
-  <div class="add-product">
+  <div class="add-container">
     <div class="items-header">
       <span class="title">المنتجات</span>
     </div>
@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "add-product",
   data() {
@@ -79,6 +81,11 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0,0);
+
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.adminRole) {
+      router.push("/login")
+    }
   },
   methods: {
     addNewColor() {
@@ -137,7 +144,10 @@ export default {
             if (response.status)
               this.$router.push('/product/view/' + response.data.id)
           })
-          .catch(error => console.log('error', error));
+          .catch(error => {
+            console.log(error)
+            this.error_message = "حدث خطأ ما"
+          });
 
       this.is_loading = false
 

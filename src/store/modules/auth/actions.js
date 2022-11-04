@@ -65,7 +65,7 @@ export default {
         localStorage.removeItem('role')
         localStorage.removeItem('tokenExpiration')
 
-        router.push("/");
+        router.push("/login");
 
     }
 }

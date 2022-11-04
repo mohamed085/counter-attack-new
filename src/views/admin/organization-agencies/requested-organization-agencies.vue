@@ -1,5 +1,8 @@
 <template>
-  <b-overlay :show="is_loading" rounded="sm" class="items-layout">
+  <div>
+    <div class="err" v-if="error">{{ error_message }}</div>
+
+    <b-overlay :show="is_loading" rounded="sm" class="items-layout">
     <div class="items-header">
       <span class="title">طلبات اللجان المنظمة</span>
     </div>
@@ -40,9 +43,12 @@
     <!--    </div>-->
 
   </b-overlay>
+  </div>
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "requested-organization-agencies",
   data() {
@@ -54,6 +60,11 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0,0);
+
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.adminRole) {
+      router.push("/login")
+    }
     this.loadTeams();
   },
   methods: {
@@ -73,16 +84,18 @@ export default {
       };
 
       let url = this.$store.getters["main/getURL"] + '/api/admin/organization-requests';
-      await fetch(url, requestOptions)
-          .then(response => response.json())
-          .then(response => {
-            console.log(response)
-            if (response.status)
-              this.organization_requests = response.data
-          })
-          .catch(error => console.log('error', error));
 
-      this.is_loading = false
+      const response = await fetch(url, requestOptions);
+      const responseData = await response.json();
+
+      if (!response.ok || !responseData.status) {
+        console.log(response)
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        this.organization_requests = responseData.data
+        this.is_loading = false
+      }
 
     },
     linkGen(pageNum) {

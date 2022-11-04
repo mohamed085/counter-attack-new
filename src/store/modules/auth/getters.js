@@ -11,6 +11,12 @@ export default {
     adminRole(state) {
         return state.adminRole;
     },
+    teamRole(state) {
+        return state.teamRole;
+    },
+    organizationRole(state) {
+        return state.organizationRole;
+    },
     isAuthenticated(state) {
         return !!state.token;
     }

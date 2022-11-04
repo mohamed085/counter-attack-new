@@ -165,26 +165,6 @@
   }
 }
 
-.add-product {
-  background-color: $color-white;
-  min-height: 80vh;
-  padding: 20px;
-  border-radius: 5px;
-  color: $color-black;
-
-
-  & .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-
-    & .title {
-      width: 20%;
-    }
-
-
-  }
-}
 
 .size {
   width: 33px;
@@ -202,13 +182,6 @@
   }
 }
 
-.add-image-btn {
-  display: block;
-  width: max-content;
-  padding: 5px 7px;
-  border: none;
-  margin: 10px 5px 0 0;
-}
 
 .img {
   max-width: 100%;

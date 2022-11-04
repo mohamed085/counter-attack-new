@@ -10,8 +10,8 @@ export default {
             token: null,
             tokenExpiration: null,
             adminRole: "super",
-            organizationAgencyRole: "organization_agency",
-            teamMemberRole: "team",
+            organizationRole: "organization_agency",
+            teamRole: "team",
         }
     },
     mutations,

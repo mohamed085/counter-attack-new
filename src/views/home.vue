@@ -13,7 +13,21 @@
             <i class="fas fa-search"></i>
           </div>
           <div class="home__navbar__content__settings">
-            <img src="../assets/img/user-small.png">
+            <div v-if="drop" class="home__navbar__content__settings__drop">
+              <router-link to="/account" class="link">
+                <i class="fas fa-user-alt"></i>
+                <span>الصفحة الشخصية</span>
+              </router-link>
+              <router-link to="/settings" class="link">
+                <i class="fas fa-user-cog"></i>
+                <span>الإعدادات</span>
+              </router-link>
+              <span @click="$store.dispatch('logout')" class="link">
+                <i class="fas fa-sign-out"></i>
+                <span>تسجيل الخروج</span>
+              </span>
+            </div>
+            <img @click="drop = !drop" src="../assets/img/user-small.png">
           </div>
         </div>
       </div>
@@ -36,6 +50,14 @@ export default {
   components: {
     Sidebar
   },
+  data() {
+    return {
+      is_loading: false,
+      sidebar: (window.innerWidth > 900),
+      search_value: '',
+      drop: false
+    }
+  },
   created() {
     window.scrollTo(0,0);
 
@@ -43,14 +65,6 @@ export default {
       router.push("/login")
     }
   },
-  data() {
-    return {
-      is_loading: false,
-      sidebar: (window.innerWidth > 900),
-      search_value: '',
-
-    }
-  }
 }
 </script>
 

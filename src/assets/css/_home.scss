@@ -2,7 +2,7 @@
 @import "mixins";
 
 .home {
-  font-size: 1rem;
+  font-size: 16px;
   background-color: #ecf0fa;
   min-height: 100vh;
 
@@ -43,6 +43,7 @@
     top: 0;
     z-index: 99;
     box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+    height: 64px;
 
     &__content {
       padding: 7px 30px;
@@ -91,12 +92,50 @@
         display: flex;
         align-items: center;
         margin-right: auto;
+        position: relative;
+
+        &__drop {
+          position: fixed;
+          background: #fff;
+          padding: 10px 15px 0;
+          top: 64px;
+          left: 10px;
+          z-index: 99;
+          box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+
+          & .link {
+            width: 100%;
+            color: $color-black;
+            border-bottom: 1px solid rgb(0 0 0 / 10%);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            cursor: pointer;
+
+            & i {
+              font-size: 12px;
+            }
+            & span {
+              margin-right: 5px;
+            }
+
+            &:hover {
+              color: $color-primary-dark;
+            }
+          }
+        }
 
         & img {
           border-radius: 50%;
           margin: 0 10px;
           height: 50px;
           width: 50px;
+          cursor: pointer;
         }
 
         & i {
