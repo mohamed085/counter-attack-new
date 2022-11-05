@@ -202,3 +202,14 @@
     }
   }
 }
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  & .title {
+    width: 20%;
+  }
+}
+

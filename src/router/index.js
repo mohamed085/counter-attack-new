@@ -28,6 +28,8 @@ import editAcceptedTeamShirt from "@/views/shared/teams/edit-accepted-team-shirt
 import editAcceptedTeamPlayer from "@/views/shared/teams/edit-accepted-team-player";
 import myTeam from "@/views/team/my-team";
 import addAcceptedTeamPlayer from "@/views/shared/teams/add-accepted-team-player";
+import championships from "@/views/organization-agency/championships/championships";
+import addChampionship from "@/views/organization-agency/championships/add-championship";
 
 Vue.use(VueRouter)
 
@@ -78,6 +80,11 @@ const routes = [
         // coach-assistants routes
         { path: '/coach-assistants', component: coachAssistants },
         { path: '/coach-assistants/add', component: addCoachAssistant },
+
+        /** organization-agency */
+        // championships routes
+        { path: '/championships', component: championships },
+        { path: '/championships/add', component: addChampionship },
 
 
     ]},

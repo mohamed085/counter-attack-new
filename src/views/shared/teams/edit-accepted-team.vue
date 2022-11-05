@@ -20,10 +20,11 @@
           <b-overlay :show="overview_loading" rounded="sm" class="card team-overview">
             <b-form @submit.prevent="updateTeamOverviewData">
               <div class="main-img">
-                <img class="logo-img" :src="logo">
+                <img class="logo-img" v-if="team.logo == null || team.logo === ''" src="../../../assets/img/default-team-logo.png">
+                <img class="logo-img" v-else :src="team.logo">
               </div>
               <input type="file" accept="image/" class="hidden" ref="logoFile" @change="addLogo">
-              <button class="add-logo-btn" @click="browseLogo">تعديل الصورة</button>
+              <button type="button" class="add-logo-btn" @click="browseLogo">تعديل الصورة</button>
               <div class="team-info">
                 <div v-if="!edit_name" class="d-flex justify-content-between align-items-center mt-4">
                   <span class="team-name">{{ team.team_name }}</span>
@@ -156,7 +157,7 @@ export default {
       let reader = new FileReader();
       reader.readAsDataURL(this.logo_file);
       reader.onload = e => {
-        this.logo = e.target.result;
+        this.team.logo = e.target.result;
       }
     },
     browseLogo() {
@@ -236,6 +237,7 @@ export default {
       data.append("teamleader_name", this.team.teamleader_name);
       data.append("phone", this.team.phone);
       data.append("sport_tool", this.team.sport_tool);
+      data.append("logo", this.logo_file);
 
       let requestOptions = {
         method: 'POST',
@@ -244,7 +246,12 @@ export default {
         redirect: 'follow'
       };
 
-      let url = this.$store.getters["main/getURL"] + '/api/admin/update-team-info/' + this.team.id;
+      let url;
+      if (this.$store.getters.role === this.$store.getters.adminRole)
+        url = this.$store.getters["main/getURL"] + '/api/admin/update-team-info/' + this.team.id;
+      else if (this.$store.getters.role === this.$store.getters.teamRole)
+        url = this.$store.getters["main/getURL"] + '/api/team/update-team-info/' + this.team.id;
+
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();
 

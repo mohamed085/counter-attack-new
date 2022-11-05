@@ -1,0 +1,195 @@
+@import "variables";
+@import "mixins";
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  & .title {
+    width: 20%;
+  }
+}
+
+.container {
+  background: $color-white;
+  background-clip: border-box;
+  border: 1px solid #deebfd;
+  box-shadow: -8px 12px 18px 0 #dadee8;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+}
+
+.steps {
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+
+  & .item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: $color-grey-dark;
+    font-size: 20px;
+    margin-bottom: 20px;
+
+    & .item-num {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      margin-left: 5px;
+      color: $color-white;
+      background-color: $color-grey-light-2;
+    }
+
+    &.active {
+      color: $color-primary-dark;
+
+      & .item-num {
+        background-color: $color-primary-dark-2;
+      }
+    }
+  }
+
+  @include respond('tab-port') {
+    display: none;
+  }
+
+}
+
+.mobile {
+  display: none;
+
+  & .steps {
+    display: flex;
+    flex-direction: row;
+
+    & .item {
+      margin-left: 10px;
+
+      & .item-title {
+        display: none;
+
+        &.active {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  @include respond('tab-port') {
+    display: flex;
+  }
+
+}
+
+.details {
+  padding: 20px 15px;
+
+  & .details-title {
+    font-size: 20px;
+    color: $color-primary-dark-2;
+    font-weight: 500;
+  }
+
+  & .form {
+    margin: 20px 10px 10px;
+  }
+}
+
+.award {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+
+  & .inputs {
+    width: 100%;
+
+    & input {
+      margin: 0 3px;
+    }
+  }
+
+}
+
+.btns {
+  z-index: 20;
+
+  & span {
+    margin: 0 3px;
+    cursor: pointer;
+    color: $color-white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+
+    &.add {
+      background-color: $color-success-dark;
+    }
+
+    &.remove {
+      background-color: $color-danger-dark;
+    }
+
+    &:hover {
+      &.add {
+        background-color: $color-success;
+      }
+
+      &.remove {
+        background-color: $color-danger;
+      }
+    }
+  }
+}
+
+.sponsor-container {
+  position: relative;
+
+  & .btns {
+    position: absolute;
+    top: 0;
+    left: 10px;
+  }
+
+}
+
+.sponsor {
+  display: flex;
+  align-items: center;
+  background-color: $color-white;
+  padding: 20px 15px 10px 15px;
+  border-radius: 5px;
+  position: relative;
+
+  @include respond('tab-port') {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    min-height: 70vh;
+  }
+
+  & .sponsor-img {
+    max-width: 50%;
+
+    @include respond('tab-port') {
+      width: 100%;
+    }
+
+    & img {
+      border-radius: 10px;
+      max-width: 100%;
+    }
+  }
+
+  & .sponsor-details {
+    padding-right: 10px;
+  }
+
+}

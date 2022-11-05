@@ -4,6 +4,8 @@
       <span class="title">المنتجات</span>
     </div>
 
+    <div class="err" v-if="error">{{ error_message }}</div>
+
     <b-overlay :show="is_loading" rounded="sm">
       <b-form @submit.prevent="addProduct">
         <div class="form-group">
@@ -61,6 +63,8 @@ export default {
   data() {
     return {
       is_loading: false,
+      error: false,
+      error_message: '',
       product: {
         name: "",
         description: "",
@@ -138,19 +142,19 @@ export default {
       };
 
       let url = this.$store.getters["main/getURL"] + '/api/admin/add-product';
-      await fetch(url, requestOptions)
-          .then(response => response.json())
-          .then(response => {
-            if (response.status)
-              this.$router.push('/product/view/' + response.data.id)
-          })
-          .catch(error => {
-            console.log(error)
-            this.error_message = "حدث خطأ ما"
-          });
 
-      this.is_loading = false
+      const response = await fetch(url, requestOptions);
+      const responseData = await response.json();
 
+      if (!response.ok || !responseData.status) {
+        console.log(responseData)
+        this.is_loading = true;
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        await this.$router.push('/product/view/' + responseData.data.id)
+        this.is_loading = false;
+      }
     }
   }
 }

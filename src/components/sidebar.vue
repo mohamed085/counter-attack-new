@@ -7,23 +7,28 @@
     <div class="user">
       <img class="profile-img" src="https://pbs.twimg.com/profile_images/1501322370090471424/ObjAN9Dn_400x400.jpg">
       <span class="name">Mohamed Emad</span>
-      <span class="role">ادمن</span>
+      <span v-if="role === this.$store.getters.adminRole" class="role">ادمن</span>
+      <span v-if="role === this.$store.getters.teamRole" class="role">ادمن الفريق</span>
+      <span v-if="role === this.$store.getters.organizationRole" class="role">ادمن المنظمة</span>
     </div>
 
     <admin-sidebar-items v-if="role === this.$store.getters.adminRole"></admin-sidebar-items>
     <team-sidebar-items v-if="role === this.$store.getters.teamRole"></team-sidebar-items>
+    <organization-agency-sidebar-items v-if="role === this.$store.getters.organizationRole"></organization-agency-sidebar-items>
   </div>
 </template>
 
 <script>
 import AdminSidebarItems from "@/components/admin/sidebar-items";
 import TeamSidebarItems from "@/components/team/sidebar-items";
+import OrganizationAgencySidebarItems from "@/components/organization-agency/sidebar-items";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "sidebar",
   components: {
     AdminSidebarItems,
     TeamSidebarItems,
+    OrganizationAgencySidebarItems,
   },
   data() {
     return {

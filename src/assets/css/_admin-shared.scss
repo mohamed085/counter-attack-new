@@ -127,7 +127,9 @@ option {
     color: $color-primary;
 
     &:hover {
-      color: $color-primary-dark-2;
+      color: $color-primary-dark-2 !important;
+      background: none !important;
+      border: none !important;
     }
   }
 }
