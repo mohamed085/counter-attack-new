@@ -14,6 +14,12 @@
         </router-link>
       </li>
       <li class="item">
+        <router-link class="link" to="/players-requests" exact>
+          <i class="fas fa-users"></i>
+          <span>طلبات انضام اللاعبين</span>
+        </router-link>
+      </li>
+      <li class="item">
         <router-link class="link" to="/administrators" exact>
           <i class="fas fa-users"></i>
           <span>الإداريون</span>

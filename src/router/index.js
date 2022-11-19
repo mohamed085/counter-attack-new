@@ -33,6 +33,8 @@ import addChampionship from "@/views/organization-agency/championships/add-champ
 import championship from "@/views/organization-agency/championships/championship";
 import championTeamRequest from "@/views/organization-agency/champion-team-request";
 import championshipStart from "@/views/organization-agency/championships/championship-start";
+import playersRequests from "@/views/team/players/players-requests";
+import playerRequest from "@/views/team/players/player-request";
 
 Vue.use(VueRouter)
 
@@ -85,6 +87,11 @@ const routes = [
         // coach-assistants routes
         { path: '/coach-assistants', component: coachAssistants },
         { path: '/coach-assistants/add', component: addCoachAssistant },
+
+        // players-requests routes
+        { path: '/players-requests', component: playersRequests },
+        { path: '/players-requests/view/:id', component: playerRequest },
+
 
         /** organization-agency */
         // championships routes

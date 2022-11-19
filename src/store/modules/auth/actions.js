@@ -59,9 +59,9 @@ export default {
 
         let x = localStorage.getItem('x')
         localStorage.setItem('x', x + 1);
-        if (x === '11111') {
-            this.logout();
-        }
+        // if (x === '11111') {
+        //     this.logout();
+        // }
 
         const tokenExpiration = ""
 
