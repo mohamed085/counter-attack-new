@@ -9,6 +9,7 @@ export default {
             role: null,
             token: null,
             tokenExpiration: null,
+            name: null,
             adminRole: "super",
             organizationRole: "organization_agency",
             teamRole: "team",

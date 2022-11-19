@@ -214,7 +214,7 @@ export default {
         redirect: 'follow'
       };
 
-      let url = this.$store.getters["main/getURL"] + '/api/admin/get-team/' + id;
+      let url = this.$store.getters["main/getURL"] + '/api/admin/get-organization/' + id;
 
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();

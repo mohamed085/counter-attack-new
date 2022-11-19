@@ -1,15 +1,19 @@
 <template>
   <div class="sidebar">
     <router-link to="/" class="logo">
-      <img src="../assets/img/logo.png">
+      <img src="../assets/img/logo-white.png">
     </router-link>
 
-    <div class="user">
-      <img class="profile-img" src="https://pbs.twimg.com/profile_images/1501322370090471424/ObjAN9Dn_400x400.jpg">
-      <span class="name">Mohamed Emad</span>
-      <span v-if="role === this.$store.getters.adminRole" class="role">ادمن</span>
-      <span v-if="role === this.$store.getters.teamRole" class="role">ادمن الفريق</span>
-      <span v-if="role === this.$store.getters.organizationRole" class="role">ادمن المنظمة</span>
+    <div v-if="role === this.$store.getters.adminRole" class="user">
+      <span class="role">ادمن</span>
+    </div>
+    <div v-if="role === this.$store.getters.teamRole" class="user">
+      <span class="name">{{ $store.getters.name }}</span>
+      <span class="role">ادمن الفريق</span>
+    </div>
+    <div v-if="role === this.$store.getters.organizationRole" class="user">
+      <span class="name">{{ $store.getters.name }}</span>
+      <span class="role">ادمن المنظمة</span>
     </div>
 
     <admin-sidebar-items v-if="role === this.$store.getters.adminRole"></admin-sidebar-items>

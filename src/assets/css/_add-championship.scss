@@ -11,6 +11,17 @@
   }
 }
 
+.start-champion {
+  background-color: $color-primary-dark-2;
+  color: $color-white;
+  padding: 5px 14px;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $color-primary-dark-3;
+  }
+}
+
 .container {
   background: $color-white;
   background-clip: border-box;

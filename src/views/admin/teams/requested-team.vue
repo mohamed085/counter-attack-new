@@ -84,7 +84,8 @@
       <div class="col-md-4 col-12 mb-5">
         <div class="card team-overview">
           <div class="main-img">
-            <img class="logo-img" src="https://i.pinimg.com/originals/8f/04/55/8f0455ed68ce4d45007ab7cd232b5e73.png">
+            <img class="logo-img" v-if="team.logo == null || team.logo === ''" src="../../../assets/img/default-team-logo.png">
+            <img class="logo-img" v-else :src="team.logo">
           </div>
           <div class="team-info">
             <span class="team-name">{{ team.team_name }}</span>
@@ -212,7 +213,7 @@
 
                 </div>
                 <div class="team" v-if="active_tab === 'team'">
-                  <div class="row" v-if="team.team_players.length > 1">
+                  <div class="row" v-if="team.team_players.length > 0">
                     <div class="col-md-4 col-12 mb-4" v-for="player in team.team_players" :key="player.id">
                       <div class="player">
                         <img class="player-img" :src="player.image">

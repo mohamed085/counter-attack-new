@@ -3,5 +3,6 @@ export default {
         state.token = payload.token;
         state.role = payload.role;
         state.tokenExpiration = payload.tokenExpiration;
+        state.name = payload.name;
     },
 };

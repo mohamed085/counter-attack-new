@@ -82,16 +82,19 @@
                     <b-form-input type="time" v-model="champion.start_time" required></b-form-input>
                   </div>
                   <div class="form-group">
-                    <div class="title">عدد الفرق</div>
-                    <b-form-input type="number" v-model="champion.num_teams" required></b-form-input>
-                  </div>
-                  <div class="form-group">
                     <div class="title">مكان الإقامة</div>
                     <b-form-input v-model="champion.place" required></b-form-input>
                   </div>
                   <div class="form-group">
                     <div class="title">الهدف من البطولة</div>
                     <b-form-input v-model="champion.goal" required></b-form-input>
+                  </div>
+                  <div class="form-group">
+                    <div class="title">عدد الفرق</div>
+                    <b-form-select v-model="champion.num_teams" class="mb-3" required>
+                      <b-form-select-option value="16">16</b-form-select-option>
+                      <b-form-select-option value="32">32</b-form-select-option>
+                    </b-form-select>
                   </div>
                   <div class="form-group">
                     <div class="title">الحالة</div>
@@ -151,6 +154,10 @@
                           <b-form-input v-model="sponsor.name" required></b-form-input>
                         </div>
                         <div class="mb-3">
+                          <div class="mb-2">الوصف</div>
+                          <b-form-input v-model="sponsor.description" required></b-form-input>
+                        </div>
+                        <div class="mb-3">
                           <div class="mb-2">المبلغ</div>
                           <b-form-input type="number" v-model="sponsor.value" required></b-form-input>
                         </div>
@@ -169,6 +176,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "add-championship",
   data() {
@@ -195,9 +204,16 @@ export default {
           { id: new Date(), name: '', value: '' }
         ],
         sponsors: [
-          { id: new Date(), name: '', image: '', image_file: '', value: '' }
+          { id: new Date(), name: '', image: '', image_file: '', value: '', description: '' }
         ],
       }
+    }
+  },
+  created() {
+    window.scrollTo(0,0);
+
+    if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.organizationRole) {
+      router.push("/login")
     }
   },
   methods: {
@@ -225,7 +241,7 @@ export default {
       this.champion.awards.splice(index, 1);
     },
     addAward() {
-      this.champion.awards.push({ id: new Date(), name: '', value: '' })
+      this.champion.awards.push({id: new Date(), name: '', value: ''})
     },
     uploadImage(e, index) {
       this.champion.sponsors.forEach((value, index1) => {
@@ -241,16 +257,65 @@ export default {
       })
     },
     addSponsor() {
-      this.champion.sponsors.push({ id: new Date(), name: '', image: '', image_file: '', value: '' })
+      this.champion.sponsors.push({id: new Date(), name: '', image: '', image_file: '', value: '', description: ''});
     },
     removeSponsor(id) {
       let index = this.champion.sponsors.findIndex(value => value.id === id);
       this.champion.sponsors.splice(index, 1);
     },
-    saveChampionship() {
+    async saveChampionship() {
       this.is_loading = true;
-      this.error = true
-    },
+      this.error = false;
+
+      let token = this.$store.getters.token;
+      let myHeaders = new Headers();
+      myHeaders.append("Accept", "application/json");
+      myHeaders.append("Authorization", "Bearer " + token);
+
+      let formData = new FormData();
+      formData.append("name", this.champion.name);
+      formData.append("place", this.champion.place);
+      formData.append("goals", this.champion.goal);
+      formData.append("start_date", this.champion.start_date);
+      formData.append("end_date", this.champion.end_date);
+      formData.append("start_time", this.champion.start_time);
+      formData.append("number_of_teams", this.champion.num_teams);
+      formData.append("status", this.champion.status);
+
+      this.champion.sponsors.forEach((value, index) => {
+        formData.append("sponsors[" + index + "][name]", value.name);
+        formData.append("sponsors[" + index + "][image]", value.image_file);
+        formData.append("sponsors[" + index + "][description]", value.description);
+        formData.append("sponsors[" + index + "][value]", value.value);
+      })
+      this.champion.awards.forEach((value, index) => {
+        formData.append("awards[" + index + "][name]", value.name);
+        formData.append("awards[" + index + "][value]", value.value);
+      })
+
+      let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formData,
+        redirect: 'follow'
+      };
+
+      let url = this.$store.getters["main/getURL"] + '/api/organization/create-championship';
+
+      const response = await fetch(url, requestOptions);
+      const responseData = await response.json();
+      console.log(responseData)
+
+      if (!response.ok || !responseData.status) {
+        console.log(responseData)
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        this.is_loading = false
+        this.success = true;
+        this.success_message = "تم إنشاء البطولة بنجاح"
+      }
+    }
   }
 }
 </script>

@@ -5,6 +5,9 @@ export default {
     token(state) {
         return state.token;
     },
+    name(state) {
+        return state.name;
+    },
     role(state) {
         return state.role;
     },

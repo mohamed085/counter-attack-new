@@ -5,7 +5,7 @@ import home from "@/views/home";
 import main from "@/views/main";
 import requestedTeams from "@/views/admin/teams/requested-teams";
 import acceptedTeams from "@/views/admin/teams/accepted-teams";
-import acceptedTeam from "@/views/admin/teams/accepted-team";
+import acceptedTeam from "@/views/shared/teams/accepted-team";
 import requestedTeam from "@/views/admin/teams/requested-team";
 import requestedOrganizationAgencies from "@/views/admin/organization-agencies/requested-organization-agencies";
 import acceptedOrganizationAgencies from "@/views/admin/organization-agencies/accepted-organization-agencies";
@@ -30,15 +30,20 @@ import myTeam from "@/views/team/my-team";
 import addAcceptedTeamPlayer from "@/views/shared/teams/add-accepted-team-player";
 import championships from "@/views/organization-agency/championships/championships";
 import addChampionship from "@/views/organization-agency/championships/add-championship";
+import championship from "@/views/organization-agency/championships/championship";
+import championTeamRequest from "@/views/organization-agency/champion-team-request";
+import championshipStart from "@/views/organization-agency/championships/championship-start";
 
 Vue.use(VueRouter)
 
 const routes = [
     { path: '/login', component: login },
     { path: '/', component: home, children: [
+
         /** Shared */
         { path: '/', component: main },
         { path: '/about', component: about },
+        { path: '/teams-accepted/view/:id', component: acceptedTeam },
         { path: '/teams-accepted/edit/:id', component: editAcceptedTeam, children: [
             { path: '/', component: editAcceptedTeamMain },
             { path: '/teams-accepted/edit/:id/shirt/:shirtId', component: editAcceptedTeamShirt },
@@ -85,6 +90,12 @@ const routes = [
         // championships routes
         { path: '/championships', component: championships },
         { path: '/championships/add', component: addChampionship },
+        { path: '/championships/view/:id', component: championship },
+        { path: '/championships/start/:id', component: championshipStart },
+        { path: '/championships/requested-teams/:id', component: championship },
+        { path: '/championships/accepted-teams/:id', component: championship },
+        { path: '/champion/:championId/team-request/:teamId', component: championTeamRequest },
+
 
 
     ]},

@@ -1,0 +1,163 @@
+@import "variables";
+@import "mixins";
+
+.content {
+
+}
+
+.container {
+  margin-top: 10px;
+  background: $color-white;
+  background-clip: border-box;
+  border: 1px solid #deebfd;
+  box-shadow: -8px 12px 18px 0 #dadee8;
+  padding: 25px 20px;
+  margin-bottom: 10px;
+  color: $color-black;
+}
+
+.dis-active {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
+.select-team-container {
+  position: absolute;
+  z-index: 100;
+  min-height: 70vh;
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .select-team {
+    position: relative;
+    padding: 25px 25px;
+
+    & .close {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      cursor: pointer;
+
+
+      &:hover i {
+        color: $color-danger;
+      }
+    }
+
+    & .team {
+      margin-top: 25px;
+      border: 2px solid $color-primary-dark-3;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        transition: .5s;
+        color: $color-white;
+        background-color: $color-primary-dark-3;
+      }
+
+      & .img {
+        width: 50px;
+        height: 50px;
+        margin-left: 5px;
+
+        & img {
+          max-height: 100%;
+          min-width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.main-title {
+  font-size: 20px;
+}
+
+.step-1 {
+
+  & .types {
+    padding: 25px 20px 35px;
+
+    & .type {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 120px;
+      border: 1px solid #deebfd;
+      box-shadow: -8px 12px 18px 0 #dadee8;
+      margin-top: 15px;
+      cursor: pointer;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: $color-primary-dark-3;
+        color: $color-white;
+        transform: scale(1.1);
+        transition: .5s;
+      }
+    }
+  }
+}
+
+.step-2 {
+
+  & .league {
+    padding: 25px 20px 35px;
+
+    & .header {
+      background-color: $color-primary-dark-3;
+      color: $color-white;
+      padding: 5px 0;
+    }
+
+    & .team {
+      padding: 6px 0;
+      border-bottom: 1px solid $color-grey-light-1;
+      cursor: pointer;
+      color: $color-black;
+
+      &:hover {
+        background-color: $color-grey-light-1;
+      }
+      & .team-logo {
+        display: flex;
+        align-items: center;
+
+        & .img {
+          width: 24px;
+          height: 24px;
+          margin-left: 5px;
+
+          & img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+
+        }
+      }
+    }
+  }
+
+  & .group_cup {
+    padding: 25px 20px 35px;
+  }
+}
+
+.add-team {
+  background-color: $color-primary-dark-2;
+  color: $color-white;
+  padding: 2px 14px;
+  border-radius: 5px;
+  font-size: 14px;
+
+  &:hover {
+    background-color: $color-primary-dark-3 !important;
+  }
+
+}
