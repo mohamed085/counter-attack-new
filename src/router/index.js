@@ -35,6 +35,7 @@ import championTeamRequest from "@/views/organization-agency/champion-team-reque
 import championshipStart from "@/views/organization-agency/championships/championship-start";
 import playersRequests from "@/views/team/players/players-requests";
 import playerRequest from "@/views/team/players/player-request";
+import academiesRequests from "@/views/admin/academies/academies-requests";
 
 Vue.use(VueRouter)
 
@@ -71,6 +72,9 @@ const routes = [
         { path: '/product/view/:id', component: product },
         { path: '/product/edit/:id', component: editProduct },
         { path: '/product/add', component: addProduct },
+
+        // academies routes
+        { path: '/academies-requests', component: academiesRequests },
 
         /** Team */
         // team routes

@@ -49,6 +49,27 @@
         </div>
       </li>
       <li class="item">
+        <div @click="academies = !academies" class="parent-link">
+          <div>
+            <i class="fas fa-futbol"></i>
+            <span>الأكاديميات</span>
+          </div>
+          <i v-if="!academies" class="fas fa-angle-down me-3 animate__animated animate__fadeIn"></i>
+          <i v-if="academies" class="fas fa-angle-up me-3 animate__animated animate__fadeIn"></i>
+        </div>
+        <div v-if="academies" class="child-content animate__animated animate__fadeIn">
+          <router-link class="child-link" to="/organization-agencies-accepted" exact>
+            <i class="fas fa-angle-left"></i>
+            <span>الأكاديميات الموجودة</span>
+          </router-link>
+          <router-link class="child-link" to="/academies-requests" exact>
+            <i class="fas fa-angle-left"></i>
+            <span>طلبات الأكاديميات</span>
+          </router-link>
+
+        </div>
+      </li>
+      <li class="item">
         <router-link class="link" to="/products">
           <i class="fab fa-product-hunt"></i>
           <span>المنتجات</span>
@@ -65,6 +86,7 @@ export default {
     return {
       teams: false,
       organization_agencies: false,
+      academies: false,
     }
   }
 }
