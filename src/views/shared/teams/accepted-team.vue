@@ -5,19 +5,40 @@
     <b-overlay :show="is_loading" rounded="sm" class="content">
       <div class="header">
         <div class="breadcrumb">
-          <router-link v-if="$store.getters.role === $store.getters.adminRole" class="link" to="/teams-accepted">الفرق / </router-link>
+          <router-link
+            v-if="$store.getters.role === $store.getters.adminRole"
+            class="link"
+            to="/teams-accepted"
+          >
+            الفرق /
+          </router-link>
           <span v-if="!is_loading" class="active">{{ team.team_name }}</span>
         </div>
 
         <div v-if="$store.getters.role === $store.getters.adminRole">
           <div v-if="!is_loading" class="action-btns">
-            <b-button v-b-modal.message-model v-b-tooltip.hover title="إرسال رسالة" class="btn message-btn">
+            <b-button
+              v-b-modal.message-model
+              v-b-tooltip.hover
+              title="إرسال رسالة"
+              class="btn message-btn"
+            >
               <i class="fas fa-envelope"></i>
             </b-button>
-            <router-link class="btn edit-btn" v-b-tooltip.hover title="تعديل بيانات الفريق" :to="'/teams-accepted/edit/' + team.id">
+            <router-link
+              class="btn edit-btn"
+              v-b-tooltip.hover
+              title="تعديل بيانات الفريق"
+              :to="'/teams-accepted/edit/' + team.id"
+            >
               <i class="fal fa-edit"></i>
             </router-link>
-            <b-button v-b-modal.delete-model v-b-tooltip.hover title="حذف الفريق" class="btn remove-btn">
+            <b-button
+              v-b-modal.delete-model
+              v-b-tooltip.hover
+              title="حذف الفريق"
+              class="btn remove-btn"
+            >
               <i class="far fa-trash-alt"></i>
             </b-button>
           </div>
@@ -29,12 +50,32 @@
           <b-overlay :show="is_loading">
             <b-form @submit.prevent="sendMessage">
               <div class="d-block">
-                <b-form-input type="text" v-model="message.title" placeholder="عنوان الرسالة" required></b-form-input>
-                <b-form-input type="text" class="mt-2" v-model="message.message" placeholder="الرسالة" required></b-form-input>
+                <b-form-input
+                  type="text"
+                  v-model="message.title"
+                  placeholder="عنوان الرسالة"
+                  required
+                ></b-form-input>
+                <b-form-input
+                  type="text"
+                  class="mt-2"
+                  v-model="message.message"
+                  placeholder="الرسالة"
+                  required
+                ></b-form-input>
               </div>
               <div class="d-flex">
-                <b-button class="mt-3 ms-2 btn-success" type="submit" block>إرسال الرسالة</b-button>
-                <b-button class="mt-3 btn-danger" type="reset" block @click="$bvModal.hide('message-model')">إغلاق</b-button>
+                <b-button class="mt-3 ms-2 btn-success" type="submit" block>
+                  إرسال الرسالة
+                </b-button>
+                <b-button
+                  class="mt-3 btn-danger"
+                  type="reset"
+                  block
+                  @click="$bvModal.hide('message-model')"
+                >
+                  إغلاق
+                </b-button>
               </div>
             </b-form>
           </b-overlay>
@@ -46,8 +87,17 @@
               <span>هل انت متاكد من حذف الفريق: {{ team.team_name }}</span>
             </div>
             <div class="d-flex">
-              <b-button class="mt-3 ms-2 btn-success" @click="deleteTeam" block>حذف</b-button>
-              <b-button class="mt-3 btn-danger" type="reset" block @click="$bvModal.hide('delete-model')">إغلاق</b-button>
+              <b-button class="mt-3 ms-2 btn-success" @click="deleteTeam" block>
+                حذف
+              </b-button>
+              <b-button
+                class="mt-3 btn-danger"
+                type="reset"
+                block
+                @click="$bvModal.hide('delete-model')"
+              >
+                إغلاق
+              </b-button>
             </div>
           </b-overlay>
           <b-overlay v-else-if="delete_success" :show="is_loading">
@@ -55,7 +105,13 @@
               <span>تم حذف الفريق بنجاح</span>
             </div>
             <div>
-              <b-button class="mt-3 btn-danger" block @click="$router.push('/teams-accepted/')">إغلاق</b-button>
+              <b-button
+                class="mt-3 btn-danger"
+                block
+                @click="$router.push('/teams-accepted/')"
+              >
+                إغلاق
+              </b-button>
             </div>
           </b-overlay>
         </b-modal>
@@ -65,17 +121,23 @@
         <div class="col-md-4 col-12 mb-5">
           <div class="card team-overview">
             <div class="main-img">
-              <img class="logo-img" v-if="team.logo == null || team.logo === ''" src="../../../assets/img/default-team-logo.png">
-              <img class="logo-img" v-else :src="team.logo">
+              <img
+                class="logo-img"
+                v-if="team.logo == null || team.logo === ''"
+                src="../../../assets/img/default-team-logo.png"
+              />
+              <img class="logo-img" v-else :src="team.logo" />
             </div>
             <div class="team-info">
               <span class="team-name">{{ team.team_name }}</span>
               <span class="team-about">تست</span>
             </div>
             <div class="team-bio">
-            <span>
-              النص ما ازداد وضوحا على الظاهر لمعنى المتكلم، وهو سوق الكلام لأجل ذلك المعنى، فإذا قيل أحسنوا إلى فلان الذي يفرح بفرحي ويغتم بغمي، كان نصا في بيان محبته.
-            </span>
+              <span>
+                النص ما ازداد وضوحا على الظاهر لمعنى المتكلم، وهو سوق الكلام
+                لأجل ذلك المعنى، فإذا قيل أحسنوا إلى فلان الذي يفرح بفرحي ويغتم
+                بغمي، كان نصا في بيان محبته.
+              </span>
             </div>
             <div class="team-statistics row">
               <div class="col-4 item">
@@ -133,29 +195,75 @@
             <div class="col-12">
               <div class="card details-container">
                 <div class="tabs-menu-lg">
-                <span :class="(active_tab === 'about') ? 'active' : ''"
-                      @click="active_tab = 'about'" class="tab">عن الفريق</span>
-                  <span :class="(active_tab === 'manger') ? 'active' : ''"
-                        @click="active_tab = 'manger'" class="tab">المسئول</span>
-                  <span :class="(active_tab === 'team') ? 'active' : ''"
-                        @click="active_tab = 'team'" class="tab">الفريق</span>
-                  <span :class="(active_tab === 'championships') ? 'active' : ''"
-                        @click="active_tab = 'championships'" class="tab">البطولات</span>
-                  <span :class="(active_tab === 'awards') ? 'active' : ''"
-                        @click="active_tab = 'awards'" class="tab">الجوائز</span>
-                  <span :class="(active_tab === 'financial_issues') ? 'active' : ''"
-                        @click="active_tab = 'financial_issues'" class="tab">الامور المالية</span>
+                  <span
+                    :class="active_tab === 'about' ? 'active' : ''"
+                    @click="active_tab = 'about'"
+                    class="tab"
+                  >
+                    عن الفريق
+                  </span>
+                  <span
+                    :class="active_tab === 'manger' ? 'active' : ''"
+                    @click="active_tab = 'manger'"
+                    class="tab"
+                  >
+                    المسئول
+                  </span>
+                  <span
+                    :class="active_tab === 'team' ? 'active' : ''"
+                    @click="active_tab = 'team'"
+                    class="tab"
+                  >
+                    الفريق
+                  </span>
+                  <span
+                    :class="active_tab === 'championships' ? 'active' : ''"
+                    @click="active_tab = 'championships'"
+                    class="tab"
+                  >
+                    البطولات
+                  </span>
+                  <span
+                    :class="active_tab === 'awards' ? 'active' : ''"
+                    @click="active_tab = 'awards'"
+                    class="tab"
+                  >
+                    الجوائز
+                  </span>
+                  <span
+                    :class="active_tab === 'financial_issues' ? 'active' : ''"
+                    @click="active_tab = 'financial_issues'"
+                    class="tab"
+                  >
+                    الامور المالية
+                  </span>
                 </div>
                 <div class="tabs-menu-sm">
-                  <b-form-select v-model="active_tab" dir="rtl" lang="AR" class="mb-3">
-                    <b-form-select-option value="about">عن الفريق</b-form-select-option>
-                    <b-form-select-option value="manger">المسئول</b-form-select-option>
-                    <b-form-select-option value="team">الفريق</b-form-select-option>
-                    <b-form-select-option value="championships">البطولات</b-form-select-option>
-                    <b-form-select-option value="awards">الجوائز</b-form-select-option>
-                    <b-form-select-option value="financial_issues">الامور المالية</b-form-select-option>
+                  <b-form-select
+                    v-model="active_tab"
+                    dir="rtl"
+                    lang="AR"
+                    class="mb-3"
+                  >
+                    <b-form-select-option value="about">
+                      عن الفريق
+                    </b-form-select-option>
+                    <b-form-select-option value="manger">
+                      المسئول
+                    </b-form-select-option>
+                    <b-form-select-option value="team">
+                      الفريق
+                    </b-form-select-option>
+                    <b-form-select-option value="championships">
+                      البطولات
+                    </b-form-select-option>
+                    <b-form-select-option value="awards">
+                      الجوائز
+                    </b-form-select-option>
+                    <b-form-select-option value="financial_issues">
+                      الامور المالية
+                    </b-form-select-option>
                   </b-form-select>
-
                 </div>
                 <div class="content">
                   <div class="about" v-if="active_tab === 'about'">
@@ -168,41 +276,84 @@
                     </b-form-group>
                     <b-form-group class="mb-4" label="لون التيشيرت الاساسي:">
                       <div class="row">
-                        <div class="col-12 col-md-6" v-for="shirt in team.team_tshirts" :key="shirt.id">
-                          <img class="team-shirt" v-if="shirt.type === 'home'" :src="shirt.image">
+                        <div
+                          class="col-12 col-md-6"
+                          v-for="shirt in team.team_tshirts"
+                          :key="shirt.id"
+                        >
+                          <img
+                            class="team-shirt"
+                            v-if="shirt.type === 'home'"
+                            :src="shirt.image"
+                          />
                         </div>
                       </div>
                     </b-form-group>
                     <b-form-group class="mb-4" label="لون التيشيرت الاحتياطى:">
                       <div class="row">
-                        <div class="col-12 col-md-6" v-for="shirt in team.team_tshirts" :key="shirt.id">
-                          <img class="team-shirt" v-if="shirt.type === 'away'" :src="shirt.image">
+                        <div
+                          class="col-12 col-md-6"
+                          v-for="shirt in team.team_tshirts"
+                          :key="shirt.id"
+                        >
+                          <img
+                            class="team-shirt"
+                            v-if="shirt.type === 'away'"
+                            :src="shirt.image"
+                          />
                         </div>
                       </div>
                     </b-form-group>
                   </div>
                   <div class="manger" v-if="active_tab === 'manger'">
                     <b-form-group class="mb-4" label="الإسم:">
-                      <b-form-input disabled v-model="team.teamleader_name"></b-form-input>
+                      <b-form-input
+                        disabled
+                        v-model="team.teamleader_name"
+                      ></b-form-input>
                     </b-form-group>
                     <b-form-group class="mb-4" label="رقم الجوال:">
-                      <b-form-input disabled v-model="team.phone"></b-form-input>
+                      <b-form-input
+                        disabled
+                        v-model="team.phone"
+                      ></b-form-input>
                     </b-form-group>
                     <b-form-group class="mb-4" label="البريد الالكتروني:">
-                      <b-form-input disabled v-model="team.email"></b-form-input>
+                      <b-form-input
+                        disabled
+                        v-model="team.email"
+                      ></b-form-input>
                     </b-form-group>
-
                   </div>
                   <div class="team" v-if="active_tab === 'team'">
                     <div class="row">
-                      <div class="col-md-4 col-12 mb-4" v-for="player in team.team_players" :key="player.id">
+                      <div
+                        class="col-md-4 col-12 mb-4"
+                        v-for="player in team.team_players"
+                        :key="player.id"
+                      >
                         <div class="player">
-                          <img class="player-img" :src="player.image">
+                          <img class="player-img" :src="player.image" />
                           <span class="player-num">{{ player.number }}</span>
                           <span class="player-name">{{ player.name }}</span>
-                          <span class="player-status" v-if="player.type === 'main'">لاعب اساسي</span>
-                          <span class="player-status" v-else-if="player.type === 'alt'">إحتياطي</span>
-                          <span class="player-status" v-else-if="player.type === 'goalkeeper'">حارس مرمي</span>
+                          <span
+                            class="player-status"
+                            v-if="player.type === 'main'"
+                          >
+                            لاعب اساسي
+                          </span>
+                          <span
+                            class="player-status"
+                            v-else-if="player.type === 'alt'"
+                          >
+                            إحتياطي
+                          </span>
+                          <span
+                            class="player-status"
+                            v-else-if="player.type === 'goalkeeper'"
+                          >
+                            حارس مرمي
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -218,14 +369,14 @@
 </template>
 
 <script>
-import router from "@/router";
+import router from '@/router'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "accepted-team",
+  name: 'accepted-team',
   data() {
     return {
-      active_tab: "about",
+      active_tab: 'about',
       is_loading: false,
       error: false,
       error_message: '',
@@ -238,87 +389,93 @@ export default {
     }
   },
   created() {
-  window.scrollTo(0,0);
+    window.scrollTo(0, 0)
 
     if (!this.$store.getters.isAuthenticated) {
-      router.push("/login")
+      router.push('/login')
     }
     this.loadTeam(this.$route.params.id)
   },
   methods: {
     async loadTeam(id) {
-      this.is_loading = true;
-      this.error = false;
+      this.is_loading = true
+      this.error = false
 
-      let token = this.$store.getters.token;
-      let myHeaders = new Headers();
-      myHeaders.append("Accept", "application/json");
-      myHeaders.append("Authorization", "Bearer " + token);
+      let token = this.$store.getters.token
+      let myHeaders = new Headers()
+      myHeaders.append('Accept', 'application/json')
+      myHeaders.append('Authorization', 'Bearer ' + token)
 
       let requestOptions = {
         method: 'POST',
         headers: myHeaders,
-        redirect: 'follow'
-      };
+        redirect: 'follow',
+      }
 
-      let url;
+      let url
       if (this.$store.getters.role === this.$store.getters.adminRole)
-        url = this.$store.getters["main/getURL"] + '/api/admin/get-team/' + id;
-      else if (this.$store.getters.role === this.$store.getters.organizationRole)
-        url = this.$store.getters["main/getURL"] + '/api/organization/get-team/' + id;
+        url = this.$store.getters['main/getURL'] + '/api/admin/get-team/' + id
+      else if (
+        this.$store.getters.role === this.$store.getters.organizationRole
+      )
+        url =
+          this.$store.getters['main/getURL'] +
+          '/api/organization/get-team/' +
+          id
 
-      const response = await fetch(url, requestOptions);
-      const responseData = await response.json();
+      const response = await fetch(url, requestOptions)
+      const responseData = await response.json()
       console.log(responseData)
 
       if (!response.ok || !responseData.status) {
         this.error = true
-        this.error_message = "حدث خطأ ما"
+        this.error_message = 'حدث خطأ ما'
       } else {
         this.team = responseData.data
         this.is_loading = false
       }
     },
     async sendMessage() {
-      this.is_loading = true;
+      this.is_loading = true
       console.log(this.message)
 
-      this.is_loading = false;
+      this.is_loading = false
     },
     async deleteTeam() {
-      this.is_loading = true;
+      this.is_loading = true
 
-      let token = this.$store.getters.token;
-      let myHeaders = new Headers();
-      myHeaders.append("Accept", "application/json");
-      myHeaders.append("Authorization", "Bearer " + token);
-
+      let token = this.$store.getters.token
+      let myHeaders = new Headers()
+      myHeaders.append('Accept', 'application/json')
+      myHeaders.append('Authorization', 'Bearer ' + token)
 
       let requestOptions = {
         method: 'POST',
         headers: myHeaders,
-        redirect: 'follow'
-      };
+        redirect: 'follow',
+      }
 
-      let url = this.$store.getters["main/getURL"] + '/api/admin/block-team/' + this.team.id;
-      const response = await fetch(url, requestOptions);
-      const responseData = await response.json();
+      let url =
+        this.$store.getters['main/getURL'] +
+        '/api/admin/block-team/' +
+        this.team.id
+      const response = await fetch(url, requestOptions)
+      const responseData = await response.json()
 
       if (!response.ok || !responseData.status) {
         console.log(responseData)
         this.error = true
-        this.error_message = "حدث خطأ ما"
+        this.error_message = 'حدث خطأ ما'
       } else {
-        this.delete_success = true;
+        this.delete_success = true
         this.is_loading = false
       }
     },
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../../../assets/css/admin-shared";
-@import "../../../assets/css/admin-team";
-
+@import '../../../assets/css/admin-shared';
+@import '../../../assets/css/admin-team';
 </style>

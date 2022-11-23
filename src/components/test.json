@@ -1,67 +1,67 @@
 {
-  "team_players": [
-    {
-      "id": 48,
-      "name": "ahmed",
-      "number": "11",
-      "image": "https://counter-api.counterattack.top/team/27/players/835.png",
-      "type": "main",
-      "team_id": "27",
-      "created_at": "2022-10-22T11:19:38.000000Z",
-      "updated_at": "2022-10-22T11:19:38.000000Z"
-    },
-    {
-      "id": 49,
-      "name": "shawki",
-      "number": "23",
-      "image": "https://counter-api.counterattack.top/team/27/players/822.png",
-      "type": "main",
-      "team_id": "27",
-      "created_at": "2022-10-22T11:19:38.000000Z",
-      "updated_at": "2022-10-22T11:19:38.000000Z"
-    },
-    {
-      "id": 50,
-      "name": "hassan",
-      "number": "33",
-      "image": "https://counter-api.counterattack.top/team/27/players/674.png",
-      "type": "alt",
-      "team_id": "27",
-      "created_at": "2022-10-22T11:19:38.000000Z",
-      "updated_at": "2022-10-22T11:19:38.000000Z"
-    }
-  ],
-  "deletedPlayer": [12],
-  "newPlayer": [
-    {
-      "id": 4213123128,
-      "name": "ahmed",
-      "number": "11",
-      "image": "https://counter-api.counterattack.top/team/27/players/835.png",
-      "type": "main",
-      "team_id": "27",
-      "created_at": "2022-10-22T11:19:38.000000Z",
-      "updated_at": "2022-10-22T11:19:38.000000Z"
-    },
-    {
-      "id": 431231239,
-      "name": "shawki",
-      "number": "23",
-      "image": "https://counter-api.counterattack.top/team/27/players/822.png",
-      "type": "main",
-      "team_id": "27",
-      "created_at": "2022-10-22T11:19:38.000000Z",
-      "updated_at": "2022-10-22T11:19:38.000000Z"
-    },
-    {
-      "id": 503123123,
-      "name": "hassan",
-      "number": "33",
-      "image": "https://counter-api.counterattack.top/team/27/players/674.png",
-      "type": "alt",
-      "team_id": "27",
-      "created_at": "2022-10-22T11:19:38.000000Z",
-      "updated_at": "2022-10-22T11:19:38.000000Z"
-    }
-  ],
+	"team_players": [
+		{
+			"id": 48,
+			"name": "ahmed",
+			"number": "11",
+			"image": "https://counter-api.counterattack.top/team/27/players/835.png",
+			"type": "main",
+			"team_id": "27",
+			"created_at": "2022-10-22T11:19:38.000000Z",
+			"updated_at": "2022-10-22T11:19:38.000000Z"
+		},
+		{
+			"id": 49,
+			"name": "shawki",
+			"number": "23",
+			"image": "https://counter-api.counterattack.top/team/27/players/822.png",
+			"type": "main",
+			"team_id": "27",
+			"created_at": "2022-10-22T11:19:38.000000Z",
+			"updated_at": "2022-10-22T11:19:38.000000Z"
+		},
+		{
+			"id": 50,
+			"name": "hassan",
+			"number": "33",
+			"image": "https://counter-api.counterattack.top/team/27/players/674.png",
+			"type": "alt",
+			"team_id": "27",
+			"created_at": "2022-10-22T11:19:38.000000Z",
+			"updated_at": "2022-10-22T11:19:38.000000Z"
+		}
+	],
+	"deletedPlayer": [ 12 ],
+	"newPlayer": [
+		{
+			"id": 4213123128,
+			"name": "ahmed",
+			"number": "11",
+			"image": "https://counter-api.counterattack.top/team/27/players/835.png",
+			"type": "main",
+			"team_id": "27",
+			"created_at": "2022-10-22T11:19:38.000000Z",
+			"updated_at": "2022-10-22T11:19:38.000000Z"
+		},
+		{
+			"id": 431231239,
+			"name": "shawki",
+			"number": "23",
+			"image": "https://counter-api.counterattack.top/team/27/players/822.png",
+			"type": "main",
+			"team_id": "27",
+			"created_at": "2022-10-22T11:19:38.000000Z",
+			"updated_at": "2022-10-22T11:19:38.000000Z"
+		},
+		{
+			"id": 503123123,
+			"name": "hassan",
+			"number": "33",
+			"image": "https://counter-api.counterattack.top/team/27/players/674.png",
+			"type": "alt",
+			"team_id": "27",
+			"created_at": "2022-10-22T11:19:38.000000Z",
+			"updated_at": "2022-10-22T11:19:38.000000Z"
+		}
+	]
 }
