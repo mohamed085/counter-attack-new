@@ -58,7 +58,7 @@
           <i v-if="academies" class="fas fa-angle-up me-3 animate__animated animate__fadeIn"></i>
         </div>
         <div v-if="academies" class="child-content animate__animated animate__fadeIn">
-          <router-link class="child-link" to="/organization-agencies-accepted" exact>
+          <router-link class="child-link" to="/" exact>
             <i class="fas fa-angle-left"></i>
             <span>الأكاديميات الموجودة</span>
           </router-link>
