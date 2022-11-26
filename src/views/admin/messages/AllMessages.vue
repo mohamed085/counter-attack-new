@@ -29,8 +29,15 @@
                 <td>{{ message.content }}</td>
                 <td>
                   <b-button-group>
-                    <b-button variant="info" @click="view(message.id)">
-                      الرد
+                    <reply
+                      v-if="message.status == '0'"
+                      name="admin/message-reply"
+                      :message="message.content"
+                      :id="message.id"
+                      @refreshData="getMessages"
+                    />
+                    <b-button disabled variant="info" v-else>
+                      تم الرد
                     </b-button>
                   </b-button-group>
                 </td>
@@ -39,8 +46,8 @@
           </table>
         </div>
 
-        <div v-if="!users">
-          لايوجد اعضاء متاحه
+        <div v-if="!messages">
+          لايوجد رسائل متاحة
         </div>
       </div>
 
@@ -53,8 +60,10 @@
 
 <script>
 import router from '@/router'
+import Reply from './Reply.vue'
 
 export default {
+  components: { Reply },
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'all_messages',
   data() {
@@ -85,7 +94,7 @@ export default {
         .get('admin/all-messages')
         .then((data) => {
           this.messages = data.data.data
-          console.log(this.messages)
+
           this.is_loading = false
         })
         .catch(() => {

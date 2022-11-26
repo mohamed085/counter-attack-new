@@ -29,7 +29,14 @@
                 <th scope="row">{{ user.id }}</th>
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.is_blocked == '0' ? 'فعال' : 'محظور' }}</td>
+                <td>
+                  <span
+                    class="my-0 mx-3 p-1"
+                    :class="user.is_blocked == '0' ? 'success' : 'danger'"
+                  >
+                    {{ user.is_blocked == '0' ? 'فعال' : 'محظور' }}
+                  </span>
+                </td>
                 <td>
                   <b-button-group>
                     <b-button variant="info" @click="view(user.id)">
@@ -134,5 +141,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.danger {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  padding: 0.7rem 1rem;
+  border: 1px solid red;
+  font-size: 16px;
+  color: #fff;
+  background: red;
+  border-radius: 10px;
+}
 @import '../../../assets/css/admin-shared';
 </style>

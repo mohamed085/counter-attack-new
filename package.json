@@ -17,6 +17,7 @@
     "core-js": "^3.8.3",
     "echarts": "^5.3.3",
     "express": "^4.18.1",
+    "mapbox-gl": "^2.11.0",
     "serve-static": "^1.15.0",
     "vue": "^2.6.14",
     "vue-axios": "^3.5.2",
@@ -24,6 +25,9 @@
     "vue-izitoast": "^1.2.1",
     "vue-router": "^3.5.1",
     "vue-toast-notification": "^0.6.3",
+    "vue2-google-maps": "^0.10.7",
+    "vue2-location-picker": "^1.2.0",
+    "vuetify-location-picker": "^1.0.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {

@@ -11,6 +11,13 @@ import IconsPlugin from 'bootstrap-vue'
 import 'aos/dist/aos.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import * as VueGoogleMaps from 'vue2-google-maps'
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyDRymdCLWxCwLHFnwv36iieKAMjiwk8sdc',
+    libraries: 'places',
+  },
+})
 
 import { use } from 'echarts/core'
 

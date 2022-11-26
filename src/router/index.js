@@ -17,6 +17,7 @@ import Playgrounds from '@/views/admin/playground/All.vue'
 import Playground from '@/views/admin/playground/Show.vue'
 import EditPlayground from '@/views/admin/playground/Edit.vue'
 import AddPlayground from '@/views/admin/playground/Add.vue'
+import Features from '@/views/admin/features/All.vue'
 import Users from '@/views/admin/users/AllUsers.vue'
 import EditUser from '@/views/admin/users/EditUser.vue'
 import AddUser from '@/views/admin/users/AddUser.vue'
@@ -125,6 +126,8 @@ const routes = [
 
       // academies routes
       { path: '/academies-requests', component: academiesRequests },
+      // Features routes
+      { path: '/features/all', component: Features },
 
       /** Team */
       // team routes
