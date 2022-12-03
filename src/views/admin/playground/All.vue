@@ -37,13 +37,11 @@
                     <b-button variant="info" @click="view(playground.id)">
                       تعديل
                     </b-button>
-
-                    <b-button
-                      variant="danger"
-                      @click="deletePlayground(playground.id)"
-                    >
-                      حذف
-                    </b-button>
+                    <deleter
+                      @refreshData="getPlaygrounds()"
+                      :id="playground.id"
+                      name="admin/delete-blayground"
+                    />
                   </b-button-group>
                 </td>
               </tr>
@@ -65,9 +63,11 @@
 
 <script>
 import router from '@/router'
+import Deleter from '@/components/Deleter.vue'
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
+  components: { Deleter },
+
   name: 'accepted-teams',
   data() {
     return {

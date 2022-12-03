@@ -174,6 +174,31 @@
         </router-link>
       </li>
       <li class="item">
+        <div @click="features = !features" class="parent-link">
+          <div>
+            <i class="fas fa-users"></i>
+            <span>الخصائص</span>
+          </div>
+          <i
+            v-if="!features"
+            class="fas fa-angle-down me-3 animate__animated animate__fadeIn"
+          ></i>
+          <i
+            v-if="features"
+            class="fas fa-angle-up me-3 animate__animated animate__fadeIn"
+          ></i>
+        </div>
+        <div
+          v-if="features"
+          class="child-content animate__animated animate__fadeIn"
+        >
+          <router-link class="child-link" to="/features/all" exact>
+            <i class="fas fa-angle-left"></i>
+            <span>عرض الكل</span>
+          </router-link>
+        </div>
+      </li>
+      <li class="item">
         <div @click="messages = !messages" class="parent-link">
           <div>
             <i class="fas fa-users"></i>
@@ -210,6 +235,7 @@ export default {
       users: false,
       playgrounds: false,
       messages: false,
+      features: false,
       teams: false,
       organization_agencies: false,
       academies: false,

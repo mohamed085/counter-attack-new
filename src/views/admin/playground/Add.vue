@@ -1,7 +1,9 @@
 <template>
   <div class="add-container">
     <div class="items-header">
-      <span class="title">الاعضاء</span>
+      <span class="title">
+        الملاعب
+      </span>
     </div>
 
     <div class="err" v-if="error">{{ error_message }}</div>
@@ -61,6 +63,21 @@
         <div class="row">
           <div class="col-2">الموقع</div>
           <div class="col-10">
+            <!-- <div class="col-lg-12 py-0">
+              <div class="input_wrapper top_label">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="autocomplete2"
+                  @click="getAddress"
+                  v-model.trim="playground.location_description"
+                />
+                <label for="autocomplete2" class="form-label">
+                  الموقع
+                </label>
+              </div>
+            </div> -->
+
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -174,17 +191,36 @@
           <div class="col-10 py-3 card">
             <div class="row">
               <div
-                class="col-12 mb-2 py-0 d-flex align-items-center"
+                class="col-6 mb-2 py-0 d-flex align-items-center"
                 v-for="(image, image_index) in playground.images"
                 :key="image_index"
               >
                 <div class="form-group m-0 col-10">
                   <!-- v-model="image.img_file"
                     :state="Boolean(image.img_file)" -->
+                  <label :for="`image${image_index}`">
+                    <img
+                      v-if="image.src"
+                      :src="image.src"
+                      class="img-fluid"
+                      alt="image"
+                    />
+                    <img
+                      v-else
+                      src="@/assets/img/drop.png"
+                      class="img-fluid"
+                      alt="image"
+                    />
+                  </label>
+                  <p class="error" v-if="image.err_msg">
+                    حجم الصوره يجب الا يتجاوز 2 ميجا
+                  </p>
                   <b-form-file
+                    accept="image/*"
+                    :id="`image${image_index}`"
                     @change="setImagesValue(image_index, $event)"
-                    placeholder="Choose a file or drop it here..."
-                    drop-placeholder="Drop file here..."
+                    placeholder="اختار صوره او اسحب هنا "
+                    drop-placeholder="اسحب"
                   ></b-form-file>
                 </div>
                 <div
@@ -212,14 +248,20 @@
     </b-overlay>
   </div>
 </template>
-
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDRymdCLWxCwLHFnwv36iieKAMjiwk8sdc"></script>
 <script>
 import router from '@/router'
 
 export default {
   name: 'add-user',
+
   data() {
     return {
+      apiKey: 'sd',
+      location: {
+        lat: 41.0082376,
+        lng: 28.97835889999999,
+      },
       is_loading: false,
       error: false,
       error_message: '',
@@ -230,7 +272,7 @@ export default {
         max_players: null,
         work_from: null,
         work_to: null,
-
+        location_description: '',
         days: [
           {
             value: null,
@@ -246,6 +288,8 @@ export default {
         images: [
           {
             value: null,
+            src: null,
+            err_msg: false,
           },
         ],
 
@@ -266,6 +310,28 @@ export default {
     }
   },
   methods: {
+    getAddress() {
+      var self = this
+      var input = document.getElementById('autocomplete2')
+      var searchBox = new google.maps.places.SearchBox(input)
+      searchBox.addListener('places_changed', function () {
+        var places = searchBox.getPlaces()
+        if (places.length == 0) {
+          return
+        }
+        var bounds = new google.maps.LatLngBounds()
+        places.forEach(function (place) {
+          bounds.extend(place.geometry.location)
+          place.geometry.location.lng()
+          place.geometry.location.lat()
+          place.formatted_address
+          self.playground.lng = place.geometry.location.lng()
+          self.playground.lat = place.geometry.location.lat()
+          self.playground.location_description = place.formatted_address
+        })
+      })
+    },
+
     validateCreateForm() {
       // this.is_loading = true
       // if (this.user.name == '') {
@@ -339,7 +405,9 @@ export default {
       }
       if (this.playground.images[0].value) {
         this.playground.images.forEach((item, index) => {
-          data.append(`images[${index}]`, item.value)
+          if (item.value) {
+            data.append(`images[${index}]`, item.value)
+          }
         })
       }
 
@@ -422,7 +490,15 @@ export default {
       this.playground.features[index].value = value
     },
     setImagesValue(index, value) {
-      this.playground.images[index].value = value.target.files[0]
+      if (value.target.files[0].size > 2097152) {
+        this.playground.images[index].err_msg = true
+      } else {
+        this.playground.images[index].value = value.target.files[0]
+        this.playground.images[index].src = URL.createObjectURL(
+          value.target.files[0],
+        )
+        this.appendImage()
+      }
     },
   },
 }
@@ -431,4 +507,10 @@ export default {
 <style lang="scss" scoped>
 @import '../../../assets/css/admin-shared';
 @import '../../../assets/css/admin-product';
+.custom-file.b-form-file {
+  display: none;
+}
+label img {
+  cursor: pointer;
+}
 </style>
