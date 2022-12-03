@@ -7,7 +7,7 @@
           <span v-if="!is_loading" class="active">{{ team.team_name }}</span>
         </div>
         <div class="action-btns">
-          <b-button v-b-modal.accept-model v-b-tooltip.hover title="قبول طلب الفريق" class="btn edit-btn">
+          <b-button @click="checkAcceptTeam" v-b-tooltip.hover title="قبول طلب الفريق" class="btn edit-btn">
             <i class="fas fa-check"></i>
           </b-button>
           <b-button v-b-modal.reject-model v-b-tooltip.hover title="رفض طلب الفريق" class="btn remove-btn">
@@ -55,6 +55,17 @@
               <b-button class="mt-3 btn-danger" block @click="close">إغلاق</b-button>
             </div>
           </b-overlay>
+        </b-modal>
+
+        <b-modal id="warn-model" title="طلب الفريق" hide-footer>
+          <div>
+            <div class="d-block mb-2">
+              <span>لا يمكنك قبول المزيد من الطلبات لقد وصلت للحد الادني من عدد الفرق</span>
+            </div>
+            <div>
+              <b-button class="mt-3 btn-danger" block @click="close">إغلاق</b-button>
+            </div>
+          </div>
         </b-modal>
 
       </div>
@@ -231,6 +242,7 @@ export default {
       error: false,
       error_message: '',
       team: '',
+      champion: '',
       message: {
         title: '',
         message: '',
@@ -247,6 +259,7 @@ export default {
       router.push("/login")
     }
     this.loadTeam(this.$route.params.teamId)
+    this.loadTeam(this.$route.params.championId)
   },
   methods: {
     async loadTeam(id) {
@@ -277,6 +290,46 @@ export default {
         this.is_loading = false
       }
     },
+    async loadChampion(id) {
+      this.is_loading = true;
+      this.error = false;
+
+      let token = this.$store.getters.token;
+      let myHeaders = new Headers();
+      myHeaders.append("Accept", "application/json");
+      myHeaders.append("Authorization", "Bearer " + token);
+
+      let requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      let championURL = this.$store.getters["main/getURL"] + '/api/organization/get-championship/' + id;
+      const championResponse = await fetch(championURL, requestOptions);
+      const championResponseData = await championResponse.json();
+
+      if (!championResponse.ok || !championResponseData.status) {
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        this.champion = championResponseData.data;
+        this.is_loading = false
+      }
+
+      let requestedTeamsURL = this.$store.getters["main/getURL"] + '/api/organization/championship-requested-teams/' + this.champion.id;
+      const requestedTeamsResponse = await fetch(requestedTeamsURL, requestOptions);
+      const requestedTeamsResponseData = await requestedTeamsResponse.json();
+
+      if (!requestedTeamsResponse.ok || !requestedTeamsResponseData.status) {
+        this.error = true
+        this.error_message = "حدث خطأ ما"
+      } else {
+        this.requested_teams = requestedTeamsResponseData.data;
+        this.is_loading = false
+      }
+
+    },
     async reject() {
       this.is_loading = true;
 
@@ -302,6 +355,14 @@ export default {
       } else {
         this.reject_success = true;
         this.is_loading = false
+      }
+    },
+    checkAcceptTeam() {
+      console.log("Asd")
+      if (this.champion.number_of_teams > this.champion.count_of_accepted_teams) {
+        this.$bvModal.show('accept-model')
+      } else {
+        this.$bvModal.show('warn-model')
       }
     },
     async accept() {
@@ -330,6 +391,7 @@ export default {
         this.accept_success = true;
         this.is_loading = false
       }
+
     },
     close() {
       this.$router.push('/championships/view/' + this.$route.params.championId)

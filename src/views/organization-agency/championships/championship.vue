@@ -10,7 +10,8 @@
         </div>
 
         <div class="action-btns">
-          <router-link class="start-champion" :to="'/championships/start/' + champion.id">أبدا البطولة</router-link>
+          <router-link v-if="champion.count_of_accepted_teams >= champion.number_of_teams && champion.start_status === 'pending'" class="start-champion" :to="'/championships/start/' + champion.id">أبدا البطولة</router-link>
+          <router-link v-if="champion.start_status === 'started'" class="start-champion" :to="'/championships/details/' + champion.id">عرض البطولة</router-link>
         </div>
       </div>
 
@@ -307,34 +308,6 @@ export default {
         this.is_loading = false
       }
 
-    },
-    async deleteChampion() {
-      this.is_loading = true;
-
-      let token = this.$store.getters.token;
-      let myHeaders = new Headers();
-      myHeaders.append("Accept", "application/json");
-      myHeaders.append("Authorization", "Bearer " + token);
-
-
-      let requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
-
-      let url = this.$store.getters["main/getURL"] + '/api/admin/block-team/' + this.team.id;
-      const response = await fetch(url, requestOptions);
-      const responseData = await response.json();
-
-      if (!response.ok || !responseData.status) {
-        console.log(responseData)
-        this.error = true
-        this.error_message = "حدث خطأ ما"
-      } else {
-        this.delete_success = true;
-        this.is_loading = false
-      }
     },
   }
 }

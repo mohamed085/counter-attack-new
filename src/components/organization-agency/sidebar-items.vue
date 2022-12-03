@@ -8,6 +8,18 @@
         </router-link>
       </li>
       <li class="item">
+        <router-link class="link" to="/journalists" exact>
+          <i class="fas fa-users"></i>
+          <span>الصحفيين</span>
+        </router-link>
+      </li>
+      <li class="item">
+        <router-link class="link" to="/photographers" exact>
+          <i class="fas fa-users"></i>
+          <span>المصوريين</span>
+        </router-link>
+      </li>
+      <li class="item">
         <div @click="championships = !championships" class="parent-link">
           <div>
             <i class="fas fa-users"></i>
@@ -36,7 +48,8 @@ export default {
   name: "sidebar-items",
   data() {
     return {
-      championships: false
+      championships: false,
+      journalists: false,
     }
   }
 }

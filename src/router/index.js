@@ -45,6 +45,11 @@ import championshipStart from '@/views/organization-agency/championships/champio
 import playersRequests from '@/views/team/players/players-requests'
 import playerRequest from '@/views/team/players/player-request'
 import academiesRequests from '@/views/admin/academies/academies-requests'
+import championDetails from "@/views/organization-agency/championships/champion-details";
+import journalists from "@/views/organization-agency/journalist/journalists";
+import addJournalist from "@/views/organization-agency/journalist/add-journalist";
+import photographers from "@/views/organization-agency/photographers/photographers";
+import addPhotographer from "@/views/organization-agency/photographers/add-photographer";
 
 Vue.use(VueRouter)
 
@@ -152,12 +157,19 @@ const routes = [
       { path: '/championships/add', component: addChampionship },
       { path: '/championships/view/:id', component: championship },
       { path: '/championships/start/:id', component: championshipStart },
+      { path: '/championships/details/:id', component: championDetails },
       { path: '/championships/requested-teams/:id', component: championship },
       { path: '/championships/accepted-teams/:id', component: championship },
-      {
-        path: '/champion/:championId/team-request/:teamId',
-        component: championTeamRequest,
-      },
+      { path: '/champion/:championId/team-request/:teamId', component: championTeamRequest },
+
+      // journalists routes
+      { path: '/journalists', component: journalists },
+      { path: '/journalists/add', component: addJournalist },
+
+      // photographers routes
+      { path: '/photographers', component: photographers },
+      { path: '/photographers/add', component: addPhotographer },
+
     ],
   },
 ]
