@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="items-header">
-      <span class="title">إضافة مصور جديدة</span>
+      <span class="title">إضافة حكم جديدة</span>
     </div>
 
     <div class="err" v-if="error">{{ error_message }}</div>
@@ -13,18 +13,18 @@
         <b-form @submit.prevent="saveJournalist">
           <div class="form-group mt-3">
             <div class="title">الإسم</div>
-            <b-form-input v-model="photographer.name" required></b-form-input>
+            <b-form-input v-model="journalist.name" required></b-form-input>
           </div>
           <div class="form-group mt-3">
             <div class="title">الإيميل</div>
-            <b-form-input v-model="photographer.email" type="email" required></b-form-input>
+            <b-form-input v-model="journalist.email" type="email" required></b-form-input>
           </div>
           <div class="form-group mt-3">
             <div class="title">الرقم السري</div>
-            <b-form-input v-model="photographer.password" type="password" required></b-form-input>
+            <b-form-input v-model="journalist.password" type="password" required></b-form-input>
           </div>
 
-          <b-button type="submit" variant="success" class="mt-4">إضافة الصحفي</b-button>
+          <b-button type="submit" variant="success" class="mt-4">إضافة حكم</b-button>
         </b-form>
       </b-overlay>
 
@@ -36,7 +36,7 @@
 import router from "@/router";
 
 export default {
-  name: "add-photographer",
+  name: "add-ruler",
   data() {
     return {
       is_loading: false,
@@ -44,7 +44,7 @@ export default {
       error_message: '',
       success: false,
       success_message: '',
-      photographer: {
+      journalist: {
         name: '',
         email: '',
         password: '',
@@ -64,12 +64,12 @@ export default {
      this.error = false;
 
      let formdata = new FormData();
-     formdata.append("name", this.photographer.name);
-     formdata.append("email", this.photographer.email);
-     formdata.append("password", this.photographer.password);
+     formdata.append("name", this.journalist.name);
+     formdata.append("email", this.journalist.email);
+     formdata.append("password", this.journalist.password);
 
      this.axios
-         .post('organization/add-photographer', formdata)
+         .post('organization/add-ruler', formdata)
          .then((data) => {
            if (data.data.status == false) {
              if (data.data.msg.email) {
@@ -101,7 +101,7 @@ export default {
              })
            }
            this.is_loading = false
-           this.$router.push('/photographers')
+           this.$router.push('/rulers')
          })
          .catch(() => {
            this.is_loading = false

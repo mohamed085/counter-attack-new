@@ -14,6 +14,12 @@
         </router-link>
       </li>
       <li class="item">
+        <router-link class="link" to="/rulers" exact>
+          <i class="fas fa-users"></i>
+          <span>الحكام</span>
+        </router-link>
+      </li>
+      <li class="item">
         <router-link class="link" to="/photographers" exact>
           <i class="fas fa-users"></i>
           <span>المصوريين</span>

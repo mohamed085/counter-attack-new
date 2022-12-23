@@ -8,6 +8,12 @@
         </router-link>
       </li>
       <li class="item">
+        <router-link class="link" to="/posts" exact>
+          <i class="fas fa-pen"></i>
+          <span>المنشورات</span>
+        </router-link>
+      </li>
+      <li class="item">
         <div @click="users = !users" class="parent-link">
           <div>
             <i class="fas fa-users"></i>
@@ -39,7 +45,7 @@
       <li class="item">
         <div @click="playgrounds = !playgrounds" class="parent-link">
           <div>
-            <i class="fas fa-users"></i>
+            <i class="fas fa-futbol"></i>
             <span>الملاعب</span>
           </div>
           <i
@@ -134,39 +140,39 @@
           </router-link>
         </div>
       </li>
-      <li class="item">
-        <div @click="academies = !academies" class="parent-link">
-          <div>
-            <i class="fas fa-futbol"></i>
-            <span>الأكاديميات</span>
-          </div>
-          <i
-            v-if="!academies"
-            class="fas fa-angle-down me-3 animate__animated animate__fadeIn"
-          ></i>
-          <i
-            v-if="academies"
-            class="fas fa-angle-up me-3 animate__animated animate__fadeIn"
-          ></i>
-        </div>
-        <div
-          v-if="academies"
-          class="child-content animate__animated animate__fadeIn"
-        >
-          <router-link
-            class="child-link"
-            to="/organization-agencies-accepted"
-            exact
-          >
-            <i class="fas fa-angle-left"></i>
-            <span>الأكاديميات الموجودة</span>
-          </router-link>
-          <router-link class="child-link" to="/academies-requests" exact>
-            <i class="fas fa-angle-left"></i>
-            <span>طلبات الأكاديميات</span>
-          </router-link>
-        </div>
-      </li>
+<!--      <li class="item">-->
+<!--        <div @click="academies = !academies" class="parent-link">-->
+<!--          <div>-->
+<!--            <i class="fas fa-futbol"></i>-->
+<!--            <span>الأكاديميات</span>-->
+<!--          </div>-->
+<!--          <i-->
+<!--            v-if="!academies"-->
+<!--            class="fas fa-angle-down me-3 animate__animated animate__fadeIn"-->
+<!--          ></i>-->
+<!--          <i-->
+<!--            v-if="academies"-->
+<!--            class="fas fa-angle-up me-3 animate__animated animate__fadeIn"-->
+<!--          ></i>-->
+<!--        </div>-->
+<!--        <div-->
+<!--          v-if="academies"-->
+<!--          class="child-content animate__animated animate__fadeIn"-->
+<!--        >-->
+<!--          <router-link-->
+<!--            class="child-link"-->
+<!--            to="/organization-agencies-accepted"-->
+<!--            exact-->
+<!--          >-->
+<!--            <i class="fas fa-angle-left"></i>-->
+<!--            <span>الأكاديميات الموجودة</span>-->
+<!--          </router-link>-->
+<!--          <router-link class="child-link" to="/academies-requests" exact>-->
+<!--            <i class="fas fa-angle-left"></i>-->
+<!--            <span>طلبات الأكاديميات</span>-->
+<!--          </router-link>-->
+<!--        </div>-->
+<!--      </li>-->
       <li class="item">
         <router-link class="link" to="/products">
           <i class="fab fa-product-hunt"></i>
@@ -174,52 +180,40 @@
         </router-link>
       </li>
       <li class="item">
-        <div @click="features = !features" class="parent-link">
+        <router-link class="link" to="/features/all" exact>
+          <i class="fas fa-cog"></i>
+          <span>الخصائص</span>
+        </router-link>
+      </li>
+      <li class="item">
+        <router-link class="link" to="/messages/all" exact>
+          <i class="fas fa-inbox"></i>
+          <span>الرسائل</span>
+        </router-link>
+      </li>
+      <li class="item">
+        <div @click="ads = !ads" class="parent-link">
           <div>
-            <i class="fas fa-users"></i>
-            <span>الخصائص</span>
+            <i class="fas fa-ad"></i>
+            <span>الإعلانات</span>
           </div>
           <i
-            v-if="!features"
+            v-if="!ads"
             class="fas fa-angle-down me-3 animate__animated animate__fadeIn"
           ></i>
           <i
-            v-if="features"
+            v-if="ads"
             class="fas fa-angle-up me-3 animate__animated animate__fadeIn"
           ></i>
         </div>
-        <div
-          v-if="features"
-          class="child-content animate__animated animate__fadeIn"
-        >
-          <router-link class="child-link" to="/features/all" exact>
+        <div v-if="ads" class="child-content animate__animated animate__fadeIn">
+          <router-link class="child-link" to="/ads" exact>
             <i class="fas fa-angle-left"></i>
             <span>عرض الكل</span>
           </router-link>
-        </div>
-      </li>
-      <li class="item">
-        <div @click="messages = !messages" class="parent-link">
-          <div>
-            <i class="fas fa-users"></i>
-            <span>الرسائل</span>
-          </div>
-          <i
-            v-if="!messages"
-            class="fas fa-angle-down me-3 animate__animated animate__fadeIn"
-          ></i>
-          <i
-            v-if="messages"
-            class="fas fa-angle-up me-3 animate__animated animate__fadeIn"
-          ></i>
-        </div>
-        <div
-          v-if="messages"
-          class="child-content animate__animated animate__fadeIn"
-        >
-          <router-link class="child-link" to="/messages/all" exact>
+          <router-link class="child-link" to="/ads/add" exact>
             <i class="fas fa-angle-left"></i>
-            <span>عرض الكل</span>
+            <span>إضافة إعلان جديد</span>
           </router-link>
         </div>
       </li>
@@ -239,6 +233,7 @@ export default {
       teams: false,
       organization_agencies: false,
       academies: false,
+      ads: false,
     }
   },
 }

@@ -91,11 +91,6 @@
             <span class="team-name">{{ team.team_name }}</span>
             <span class="team-about">تست</span>
           </div>
-          <div class="team-bio">
-            <span>
-              النص ما ازداد وضوحا على الظاهر لمعنى المتكلم، وهو سوق الكلام لأجل ذلك المعنى، فإذا قيل أحسنوا إلى فلان الذي يفرح بفرحي ويغتم بغمي، كان نصا في بيان محبته.
-            </span>
-          </div>
           <div class="team-statistics row">
             <div class="col-4 item">
               <span class="statistics-num">{{ team.team_followers }}</span>

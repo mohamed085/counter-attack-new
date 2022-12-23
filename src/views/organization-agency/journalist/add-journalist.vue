@@ -63,42 +63,59 @@ export default {
      this.is_loading = true;
      this.error = false;
 
-     let token = this.$store.getters.token;
-     let myHeaders = new Headers();
-     myHeaders.append("Accept", "application/json");
-     myHeaders.append("Authorization", "Bearer " + token);
-
      let formdata = new FormData();
      formdata.append("name", this.journalist.name);
      formdata.append("email", this.journalist.email);
      formdata.append("password", this.journalist.password);
 
-     let requestOptions = {
-       method: 'POST',
-       headers: myHeaders,
-       body: formdata,
-       redirect: 'follow'
-     };
+     this.axios
+         .post('organization/add-journalist', formdata)
+         .then((data) => {
+           if (data.data.status == false) {
+             if (data.data.msg.email) {
+               this.$iziToast.error({
+                 timeout: 2000,
+                 message: data.data.msg.email[0],
+                 position: 'bottomCenter',
+               })
+             }
+             if (data.data.msg.name) {
+               this.$iziToast.error({
+                 timeout: 2000,
+                 message: data.data.msg.name[0],
+                 position: 'bottomCenter',
+               })
+             }
+             if (data.data.msg.password) {
+               this.$iziToast.error({
+                 timeout: 2000,
+                 message: data.data.msg.password[0],
+                 position: 'bottomCenter',
+               })
+             }
+           } else {
+             this.$iziToast.success({
+               timeout: 2000,
+               message: data.data.msg,
+               position: 'bottomCenter',
+             })
+           }
+           this.is_loading = false
+           this.$router.push('/journalists')
+         })
+         .catch(() => {
+           this.is_loading = false
 
-     let url = this.$store.getters["main/getURL"] + '/api/organization/add-journalist';
-     const response = await fetch(url, requestOptions);
-     const responseData = await response.json();
-     console.log(responseData)
-
-     if (!response.ok || !responseData.status) {
-       this.error = true
-       this.error_message = "حدث خطأ ما"
-     } else {
-       this.journalists = responseData.journalists
-       this.is_loading = false
-     }
+           this.error_message = 'حدث خطأ ما'
+         })
    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../../../assets/css/admin-shared";
+@import '../../../assets/css/admin-shared';
+@import '../../../assets/css/admin-product';
 
 .container {
   background: $color-white;

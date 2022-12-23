@@ -105,7 +105,7 @@ export default {
       this.is_loading = true
       this.error = false
 
-      this.axios
+      await this.axios
         .get('admin/all-users')
         .then((data) => {
           this.users = data.data.data
@@ -123,11 +123,13 @@ export default {
       this.axios.get(`admin/block-user/${id}`).then((data) => {
         console.log(data)
       })
-    },
+      this.getUsers();
+      },
     unBlockUser(id) {
       this.axios.get(`admin/unblock_user/${id}`).then((data) => {
         console.log(data)
       })
+      this.getUsers();
     },
 
     linkGen(pageNum) {

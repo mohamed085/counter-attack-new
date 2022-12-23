@@ -1,5 +1,7 @@
 <template>
-  <v-chart class="chart" :option="option" />
+  <div class="card">
+    <v-chart class="chart" :option="option" />
+  </div>
 </template>
 
 <script>
@@ -13,54 +15,38 @@ export default {
   provide: {
     [THEME_KEY]: ""
   },
+  props: ['option'],
   data() {
     return {
-      option: {
-        title: {
-          text: 'Referer of a Website',
-          subtext: 'Fake Data',
-          left: 'center'
-        },
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '8%',
-          orient: 'vertical',
-          left: 'right'
-        },
-        series: [
-          {
-            name: 'Access From',
-            type: 'pie',
-            radius: '50%',
-            data: [
-              { value: 1048, name: 'Search Engine' },
-              { value: 735, name: 'Direct' },
-              { value: 580, name: 'Email' },
-              { value: 484, name: 'Union Ads' },
-              { value: 300, name: 'Video Ads' }
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
-          }
-        ]
-      }
     };
   }
 
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+@import "../../assets/css/variables";
+@import "../../assets/css/mixins";
+
+
 .chart {
-  height: 600px;
-  padding: 40px 20px 0;
+  height: 420px;
+  width: 100%;
+  padding: 20px 10px 0;
+
+  @include respond('tab-port') {
+    height: 300px;
+  }
+
 }
 
+.card {
+  background: $color-white;
+  background-clip: border-box;
+  border: 1px solid #deebfd;
+  box-shadow: -8px 12px 18px 0 #dadee8;
+  padding: 15px 10px;
+
+}
 </style>

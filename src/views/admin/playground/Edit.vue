@@ -9,7 +9,7 @@
     <div class="err" v-if="error">{{ error_message }}</div>
 
     <b-overlay :show="is_loading" rounded="sm">
-      <b-form @submit.prevent="validateCreateForm">
+      <b-form @submit.prevent="validateCreateForm1">
         <div class="card p-3 mb-5">
           <div class="form-group">
             <div class="title">الاسم</div>
@@ -362,7 +362,7 @@
     </b-overlay>
   </div>
 </template>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDRymdCLWxCwLHFnwv36iieKAMjiwk8sdc"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDRymdCLWxCwLHFnwv36iieKAMjiwk8sdc"></script>-->
 <script>
 import router from '@/router'
 import Deleter from '@/components/Deleter.vue'
@@ -424,27 +424,27 @@ export default {
     }
   },
   methods: {
-    getAddress() {
-      var self = this
-      var input = document.getElementById('autocomplete2')
-      var searchBox = new google.maps.places.SearchBox(input)
-      searchBox.addListener('places_changed', function () {
-        var places = searchBox.getPlaces()
-        if (places.length == 0) {
-          return
-        }
-        var bounds = new google.maps.LatLngBounds()
-        places.forEach(function (place) {
-          bounds.extend(place.geometry.location)
-          place.geometry.location.lng()
-          place.geometry.location.lat()
-          place.formatted_address
-          self.playground.lng = place.geometry.location.lng()
-          self.playground.lat = place.geometry.location.lat()
-          self.playground.location_description = place.formatted_address
-        })
-      })
-    },
+    // getAddress() {
+    //   var self = this
+    //   var input = document.getElementById('autocomplete2')
+    //   var searchBox = new google.maps.places.SearchBox(input)
+    //   searchBox.addListener('places_changed', function () {
+    //     var places = searchBox.getPlaces()
+    //     if (places.length == 0) {
+    //       return
+    //     }
+    //     var bounds = new google.maps.LatLngBounds()
+    //     places.forEach(function (place) {
+    //       bounds.extend(place.geometry.location)
+    //       place.geometry.location.lng()
+    //       place.geometry.location.lat()
+    //       place.formatted_address
+    //       self.playground.lng = place.geometry.location.lng()
+    //       self.playground.lat = place.geometry.location.lat()
+    //       self.playground.location_description = place.formatted_address
+    //     })
+    //   })
+    // },
     formateDate(date) {
       return new Date(date).toLocaleDateString()
     },
@@ -590,7 +590,7 @@ export default {
             position: 'bottomCenter',
           })
           this.days = [{}]
-          this.days[0].value = nul
+          this.days[0].value = null
           this.getPlayground()
         })
         .catch(() => {
@@ -609,7 +609,7 @@ export default {
       }
       this.axios
         .post(`admin/add-playground-feature/${this.id}`, data)
-        .then((data) => {
+        .then(() => {
           this.is_loading = false
           this.$iziToast.success({
             timeout: 2000,

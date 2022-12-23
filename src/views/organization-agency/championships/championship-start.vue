@@ -249,7 +249,7 @@ export default {
       error_message: '',
       success: false,
       success_message: '',
-      displayed_section: 'step-3',
+      displayed_section: 'step-1',
       champion: '',
       teams: '',
       champion_type: '',

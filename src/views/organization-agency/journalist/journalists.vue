@@ -15,7 +15,6 @@
             <th scope="col">#</th>
             <th scope="col">الإسم</th>
             <th scope="col">الايميل</th>
-            <th scope="col">الرقم السري</th>
           </tr>
           </thead>
           <tbody v-if="journalists.length > 0" class="table-group-divider">
@@ -23,7 +22,6 @@
             <th scope="row">{{ journalist.id }}</th>
             <td>{{ journalist.name }}</td>
             <td>{{ journalist.email }}</td>
-            <td>{{ journalist.password }}</td>
           </tr>
           </tbody>
         </table>
@@ -59,6 +57,7 @@ export default {
     if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.organizationRole) {
       router.push("/login")
     }
+    this.loadJournalists();
   },
   methods: {
     async loadJournalists() {
@@ -71,12 +70,12 @@ export default {
       myHeaders.append("Authorization", "Bearer " + token);
 
       let requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: myHeaders,
         redirect: 'follow'
       };
 
-      let url = this.$store.getters["main/getURL"] + '/api/organization/get-team/';
+      let url = this.$store.getters["main/getURL"] + '/api/organization/organization-journalists';
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();
       console.log(responseData)

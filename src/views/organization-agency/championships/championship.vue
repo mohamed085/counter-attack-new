@@ -145,7 +145,7 @@
                       <div class="award">
                         <div class="inputs d-flex">
                           <b-form-input v-model="award.name" placeholder="إسم الجائزة" disabled></b-form-input>
-                          <b-form-input type="number" v-model="award.value" placeholder="قيمة الجائزة" disabled></b-form-input>
+                          <b-form-input type="text" v-model="award.value" placeholder="قيمة الجائزة" disabled></b-form-input>
                         </div>
                       </div>
                     </div>

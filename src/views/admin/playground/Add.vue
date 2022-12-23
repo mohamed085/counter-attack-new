@@ -63,7 +63,7 @@
         <div class="row">
           <div class="col-2">الموقع</div>
           <div class="col-10">
-            <!-- <div class="col-lg-12 py-0">
+            <div class="col-lg-12 py-0">
               <div class="input_wrapper top_label">
                 <input
                   type="text"
@@ -76,7 +76,7 @@
                   الموقع
                 </label>
               </div>
-            </div> -->
+            </div>
 
             <div class="row">
               <div class="col-md-6">
@@ -248,6 +248,7 @@
     </b-overlay>
   </div>
 </template>
+
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDRymdCLWxCwLHFnwv36iieKAMjiwk8sdc"></script>
 <script>
 import router from '@/router'
@@ -382,7 +383,6 @@ export default {
     },
     addPlayground() {
       this.is_loading = true
-      // this.error = false
 
       let data = new FormData()
       data.append('name', this.playground.name)
@@ -507,6 +507,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../../assets/css/admin-shared';
 @import '../../../assets/css/admin-product';
+
 .custom-file.b-form-file {
   display: none;
 }

@@ -117,8 +117,8 @@
                         <div class="col-1">{{ index + 1 }}</div>
                         <div class="col-6">
                           <div class="team-logo">
-                            <span class="img"><img :src="team.team.logo"></span>
-                            <span>{{ team.team.team_name }}</span>
+                            <span class="img"><img :src="team.logo"></span>
+                            <span>{{ team.team_name }}</span>
                           </div>
                         </div>
                         <div class="col-1">0</div>

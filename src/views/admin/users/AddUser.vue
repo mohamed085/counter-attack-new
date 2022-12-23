@@ -24,21 +24,41 @@
             v-model="user.email"
           ></b-form-input>
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="!user.showPassword">
           <div class="title">الباسورد</div>
           <b-form-input
-            type="password"
-            placeholder="ادخل الباسورد"
-            v-model="user.password"
+              type="password"
+              placeholder="ادخل الباسورد"
+              v-model="user.password"
           ></b-form-input>
+          <i @click="user.showPassword = true" class="fas fa-eye me-3"></i>
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="user.showPassword">
+          <div class="title">الباسورد</div>
+          <b-form-input
+              type="text"
+              placeholder="ادخل الباسورد"
+              v-model="user.password"
+          ></b-form-input>
+          <i @click="user.showPassword = false" class="fas fa-eye-slash me-3"></i>
+        </div>
+        <div class="form-group" v-if="!user.showCPassword">
           <div class="title">تاكيد الباسورد</div>
           <b-form-input
-            type="password"
-            placeholder="تاكيد الباسورد"
-            v-model="user.cPassword"
+              type="password"
+              placeholder="تاكيد الباسورد"
+              v-model="user.cPassword"
           ></b-form-input>
+          <i @click="user.showCPassword = true" class="fas fa-eye me-3"></i>
+        </div>
+        <div class="form-group" v-if="user.showCPassword">
+          <div class="title">تاكيد الباسورد</div>
+          <b-form-input
+              type="text"
+              placeholder="تاكيد الباسورد"
+              v-model="user.cPassword"
+          ></b-form-input>
+          <i @click="user.showCPassword = false" class="fas fa-eye-slash me-3"></i>
         </div>
 
         <b-button type="submit" class="save-btn">حفظ</b-button>
@@ -61,7 +81,9 @@ export default {
         name: '',
         email: '',
         password: '',
+        showPassword: false,
         cPassword: '',
+        showCPassword: false,
       },
     }
   },

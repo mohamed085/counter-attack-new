@@ -1,8 +1,8 @@
 <template>
   <b-overlay :show="is_loading" rounded="sm" class="items-layout">
     <div class="items-header">
-      <span class="title">المصورين</span>
-      <b-button @click="$router.push('/photographers/add')" class="add-new-btn">إضافة مصور جديد</b-button>
+      <span class="title">الحكام</span>
+      <b-button @click="$router.push('/rulers/add')" class="add-new-btn">إضافة حكم جديد</b-button>
     </div>
 
     <div class="err" v-if="error">{{ error_message }}</div>
@@ -17,18 +17,18 @@
             <th scope="col">الايميل</th>
           </tr>
           </thead>
-          <tbody v-if="photographers.length > 0" class="table-group-divider">
-          <tr v-for="photographer in photographers" :key="photographer.id">
-            <th scope="row">{{ photographer.id }}</th>
-            <td>{{ photographer.name }}</td>
-            <td>{{ photographer.email }}</td>
+          <tbody v-if="rulers.length > 0" class="table-group-divider">
+          <tr v-for="ruler in rulers" :key="ruler.id">
+            <th scope="row">{{ ruler.id }}</th>
+            <td>{{ ruler.name }}</td>
+            <td>{{ ruler.email }}</td>
           </tr>
           </tbody>
         </table>
       </div>
 
-      <div v-if="photographers.length < 1">
-        لايوجد مصورين
+      <div v-if="rulers.length < 1">
+        لايوجد حكام
       </div>
     </div>
 
@@ -40,13 +40,13 @@ import router from "@/router";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "photographers",
+  name: "rulers",
   data() {
     return {
       is_loading: false,
       error: false,
       error_message: '',
-      photographers: [],
+      rulers: [],
       delete_success: false,
       selected_coach: ''
     }
@@ -57,11 +57,10 @@ export default {
     if (!this.$store.getters.isAuthenticated || this.$store.getters.role !== this.$store.getters.organizationRole) {
       router.push("/login")
     }
-
-    this.loadPhotographers();
+    this.loadJournalists();
   },
   methods: {
-    async loadPhotographers() {
+    async loadJournalists() {
       this.is_loading = true;
       this.error = false;
 
@@ -76,7 +75,7 @@ export default {
         redirect: 'follow'
       };
 
-      let url = this.$store.getters["main/getURL"] + '/api/organization/organization-photographers';
+      let url = this.$store.getters["main/getURL"] + '/api/organization/organization-journalists';
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();
       console.log(responseData)
@@ -85,7 +84,7 @@ export default {
         this.error = true
         this.error_message = "حدث خطأ ما"
       } else {
-        this.photographers = responseData.data
+        this.rulers = responseData.data
         this.is_loading = false
       }
     },

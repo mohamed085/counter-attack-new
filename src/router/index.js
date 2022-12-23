@@ -51,6 +51,12 @@ import journalists from "@/views/organization-agency/journalist/journalists";
 import addJournalist from "@/views/organization-agency/journalist/add-journalist";
 import photographers from "@/views/organization-agency/photographers/photographers";
 import addPhotographer from "@/views/organization-agency/photographers/add-photographer";
+import AllAds from "@/views/admin/ads/AllAds";
+import AddAd from "@/views/admin/ads/AddAd";
+import EditAd from "@/views/admin/ads/EditAd";
+import Posts from "@/views/admin/posts/posts";
+import rulers from "@/views/organization-agency/ruler/rulers";
+import addRuler from "@/views/organization-agency/ruler/add-ruler";
 
 Vue.use(VueRouter)
 
@@ -154,6 +160,14 @@ const routes = [
       { path: '/players-requests', component: playersRequests },
       { path: '/players-requests/view/:id', component: playerRequest },
 
+      // ads routes
+      { path: '/ads', component: AllAds },
+      { path: '/ads/add', component: AddAd },
+      { path: '/ads/edit/:id', component: EditAd, props: true },
+
+      // posts routes
+      { path: '/posts', component: Posts },
+
       /** organization-agency */
       // championships routes
       { path: '/championships', component: championships },
@@ -173,6 +187,10 @@ const routes = [
       { path: '/photographers', component: photographers },
       { path: '/photographers/add', component: addPhotographer },
 
+      // rulers routes
+      { path: '/rulers', component: rulers },
+      { path: '/rulers/add', component: addRuler },
+
     ],
   },
 ]
@@ -180,7 +198,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  routes
 })
 
 export default router

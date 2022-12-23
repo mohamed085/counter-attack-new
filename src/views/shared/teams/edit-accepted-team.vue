@@ -41,15 +41,6 @@
                   <b-form-input value="تست"></b-form-input>
                 </div>
               </div>
-              <div v-if="!edit_desc" class="team-bio d-flex justify-content-between align-items-sm-start mt-4">
-          <span>
-            النص ما ازداد وضوحا على الظاهر لمعنى المتكلم، وهو سوق الكلام لأجل ذلك المعنى، فإذا قيل أحسنوا إلى فلان الذي يفرح بفرحي ويغتم بغمي، كان نصا في بيان محبته.
-          </span>
-                <button @click="edit_desc = true" class="edit-btn"><i class="fas fa-pencil"></i></button>
-              </div>
-              <div v-else class="mt-3">
-                <b-textarea rows="6" value="النص ما ازداد وضوحا على الظاهر لمعنى المتكلم، وهو سوق الكلام لأجل ذلك المعنى، فإذا قيل أحسنوا إلى فلان الذي يفرح بفرحي ويغتم بغمي، كان نصا في بيان محبته."></b-textarea>
-              </div>
               <div class="team-statistics row">
                 <div class="col-4 item">
                   <span class="statistics-num">{{ team.team_followers }}</span>
